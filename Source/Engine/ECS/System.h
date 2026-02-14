@@ -22,6 +22,5 @@ namespace SurrealStudio {
 		};
 
 		// add more systems later
-			
 	}
 }

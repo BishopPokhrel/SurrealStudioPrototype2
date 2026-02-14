@@ -22,6 +22,43 @@ namespace SurrealStudio {
 			if (m_EBO) glDeleteBuffers(1, &m_EBO);
 		}
 
+		Mesh::Mesh(Mesh&& other) noexcept
+			: m_VAO(other.m_VAO),
+			m_VBO(other.m_VBO),
+			m_EBO(other.m_EBO),
+			m_Vertices(std::move(other.m_Vertices)),
+			m_Indices(std::move(other.m_Indices))
+		{
+			other.m_VAO = 0;
+			other.m_VBO = 0;
+			other.m_EBO = 0;
+		}
+
+		Mesh& Mesh::operator=(Mesh&& other) noexcept
+		{
+			if (this != &other)
+			{
+				// Delete current resources
+				if (m_VAO) glDeleteVertexArrays(1, &m_VAO);
+				if (m_VBO) glDeleteBuffers(1, &m_VBO);
+				if (m_EBO) glDeleteBuffers(1, &m_EBO);
+
+				// Move handles
+				m_VAO = other.m_VAO;
+				m_VBO = other.m_VBO;
+				m_EBO = other.m_EBO;
+
+				m_Vertices = std::move(other.m_Vertices);
+				m_Indices = std::move(other.m_Indices);
+
+				// Nullify source
+				other.m_VAO = 0;
+				other.m_VBO = 0;
+				other.m_EBO = 0;
+			}
+			return *this;
+		}
+
 		void Mesh::Draw() const noexcept
 		{
 			if (m_VAO == 0)

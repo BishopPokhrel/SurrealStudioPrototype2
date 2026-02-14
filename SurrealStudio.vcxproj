@@ -137,6 +137,7 @@
     <ClCompile Include="Source\Engine\ECS\Object.cpp" />
     <ClCompile Include="Source\Engine\ECS\System.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Mesh.cpp" />
+    <ClCompile Include="Source\Engine\SurrealRenderer\Renderer.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Shader.cpp" />
     <ClCompile Include="Source\SurrealEditor\Panels\SceneManagerPanel.cpp" />
     <ClCompile Include="Source\SurrealEditor\SurrealStudioMainWindow.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Source\Engine\ECS\System.h" />
     <ClInclude Include="Source\Engine\EngineDefines.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Mesh.h" />
+    <ClInclude Include="Source\Engine\SurrealRenderer\Renderer.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Shader.h" />
     <ClInclude Include="Source\SurrealEditor\Panels\SceneManagerPanel.h" />
     <ClInclude Include="Source\SurrealEditor\SurrealStudioMainWindow.h" />
@@ -163,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

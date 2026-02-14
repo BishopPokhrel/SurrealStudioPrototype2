@@ -5,9 +5,16 @@
 #include <memory>
 #include <vector>
 
+#include <Engine/SurrealRenderer/Shader.h>
+#include <Engine/SurrealRenderer/Mesh.h>
+
+#include "Component.h"
+
 namespace SurrealStudio {
 
 	namespace ECS {
+
+		class Component;
 
 		constexpr unsigned int MAX_OBJECTS = 5000;
 
@@ -15,7 +22,21 @@ namespace SurrealStudio {
 		{
 			std::string name;
 			int objectID;
-			// later: component vector
+			SurrealRenderer::Transform transform;
+			SurrealRenderer::Mesh* mesh = nullptr;
+			
+			std::vector<std::unique_ptr<Component>> components;
+
+			template<typename T>
+			T* GetComponent()
+			{
+				for (auto& comp : components)
+				{
+					if (auto ptr = dynamic_cast<T*>(comp.get()))
+						return ptr;
+				}
+				return nullptr;
+			}
 		};
 
 		class ObjectManager
@@ -38,7 +59,6 @@ namespace SurrealStudio {
 
 			std::vector<std::unique_ptr<ObjectData>> m_Objects;
 			ObjectData object;
-			
 		};
 	}
 }

@@ -23,6 +23,12 @@ namespace SurrealStudio {
 		{
 		public:
 
+			Mesh(const Mesh&) = delete;
+			Mesh& operator=(const Mesh&) = delete;
+
+			Mesh(Mesh&&) noexcept;
+			Mesh& operator=(Mesh&&) noexcept;
+
 			Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int> indices) noexcept;
 			~Mesh() noexcept;
 

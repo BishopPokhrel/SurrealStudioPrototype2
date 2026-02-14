@@ -1,17 +1,23 @@
 #pragma once
 
-#include "Object.h"
-
 #include <glm/glm.hpp>
 #include <memory>
 #include <vector>
+#include <string>
 
 namespace SurrealStudio {
 
 	namespace ECS {
 
+		struct ObjectData;
+
+		struct ComponentMain
+		{
+			virtual ~ComponentMain() = default;
+		};
+
 		// Example Component
-		struct TransformComponent
+		struct TransformComponent : public ComponentMain
 		{
 			glm::vec3 position;
 			glm::vec3 rotation;

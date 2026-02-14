@@ -8,7 +8,7 @@ namespace SurrealStudio {
 
 		bool SceneManagerPanel::DrawCameraCreation()
 		{
-			int i_selectedCameraIndex = 0;
+			
 			const char* c_CPTR_cameraOptions[] = {
 				"Normal", "Orthographic"
 			};

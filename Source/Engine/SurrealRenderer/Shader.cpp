@@ -8,6 +8,9 @@
 #include <iostream>
 #include <string>
 
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 namespace SurrealStudio {
 
 	namespace SurrealRenderer {
@@ -130,6 +133,57 @@ namespace SurrealStudio {
 				vertexShader.vertexShaderSource,
 				fragmentShader.fragmentShaderSource
 			);
+		}
+
+		void Shader::SetMat4(const std::string& name, const glm::mat4& value) noexcept
+		{
+			GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+			if (location == -1)
+				return;
+
+			glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+		}
+
+		void Shader::SetVec3(const std::string& name, const glm::vec3& value) noexcept
+		{
+			GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+			if (location == -1)
+				return;
+
+			glUniform3fv(location, 1, glm::value_ptr(value));
+		}
+
+		void Shader::SetFloat(const std::string& name, float value) noexcept
+		{
+			GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+			if (location == -1)
+				return;
+
+			glUniform1f(location, value);
+		}
+
+		void Shader::Bind() const noexcept
+		{
+			if (m_RendererID != 0)
+				glUseProgram(m_RendererID);
+		}
+
+		void Shader::Unbind() const noexcept
+		{
+			glUseProgram(0);
+		}
+
+		glm::mat4 Transform::GetModelMatrix() const
+		{
+			glm::mat4 model = glm::mat4(1.0f); // identity
+			model = glm::translate(model, position);
+			
+			model = glm::rotate(model, rotation.x, glm::vec3(1, 0, 0));
+			model = glm::rotate(model, rotation.y, glm::vec3(0, 1, 0));
+			model = glm::rotate(model, rotation.z, glm::vec3(0, 0, 1));
+
+			model = glm::scale(model, scale);
+			return model;
 		}
 	}
 }

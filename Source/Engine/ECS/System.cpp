@@ -24,7 +24,7 @@ namespace SurrealStudio {
 				component->transformComponent.scale.y += component->physicsComponent.scaleVelocity.y * deltaTime;
 				component->transformComponent.scale.z += component->physicsComponent.scaleVelocity.z * deltaTime;
 			}
-			
+
 			return true;
 		}
 	}

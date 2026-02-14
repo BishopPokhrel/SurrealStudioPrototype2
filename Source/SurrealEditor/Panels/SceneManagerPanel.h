@@ -20,6 +20,7 @@ namespace SurrealStudio {
 		private:
 
 			Camera camera;
+			int i_selectedCameraIndex = 0;
 		};
 	}
 }
