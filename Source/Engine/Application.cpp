@@ -18,6 +18,10 @@ namespace SurrealStudio {
     {
         m_Window.InitWindow();
         m_Window.CreateWindow(800, 600, "Surreal Studio");
+        m_Window.SetApplication(this);
+        
+        InitTestScene();
+
         m_Window.MainLoop();
         SS_INFO("Engine is running!");
         return true;

@@ -14,8 +14,6 @@ namespace SurrealStudio {
             if (!m_Shader)
                 return;
 
-            m_Shader->Bind();
-
             for (auto* obj : objectManager.GetAllObjects())
             {
                 if (!obj->mesh)

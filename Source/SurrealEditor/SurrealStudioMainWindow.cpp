@@ -83,9 +83,9 @@ namespace SurrealStudio {
 				ImGui::NewFrame();
 
 				// ----- Example ImGui Window -----
-				ImGui::Begin("Surreal Studio Editor");
+				/*ImGui::Begin("Surreal Studio Editor");
 				ImGui::Text("Hello, Surreal Studio!");
-				ImGui::End();
+				ImGui::End();*/ 
 
 				// ----- Clear frame -----
 				glViewport(0, 0, 1280, 720);
