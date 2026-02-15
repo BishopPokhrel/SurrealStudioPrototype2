@@ -5,21 +5,26 @@
 #include "GLFW/glfw3.h"
 
 namespace SurrealStudio {
+    class Application; // forward declaration
+}
 
-	namespace SurrealEditor {
+namespace SurrealStudio {
 
-		class SurrealStudioMainWindow
-		{
-		public:
+    namespace SurrealEditor {
 
-			bool InitWindow();
-			bool CreateWindow(int width, int height, const char* title);
-			bool MainLoop();
-			bool DestroyWindow();
+        class SurrealStudioMainWindow
+        {
+        public:
+            bool InitWindow();
+            bool CreateWindow(int width, int height, const char* title);
+            bool MainLoop();
+            bool DestroyWindow();
 
-		private:
+            void SetApplication(SurrealStudio::Application* app) { m_Application = app; }
 
-			GLFWwindow* m_SurrealStudioWindow = nullptr;
-		};
-	}
+        private:
+            GLFWwindow* m_SurrealStudioWindow = nullptr;
+            SurrealStudio::Application* m_Application = nullptr;
+        };
+    }
 }

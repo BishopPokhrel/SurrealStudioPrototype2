@@ -23,7 +23,7 @@ namespace SurrealStudio {
 			std::string name;
 			int objectID;
 			SurrealRenderer::Transform transform;
-			SurrealRenderer::Mesh* mesh = nullptr;
+			std::shared_ptr<SurrealRenderer::Mesh> mesh = nullptr;
 			
 			std::vector<std::unique_ptr<Component>> components;
 
@@ -54,6 +54,20 @@ namespace SurrealStudio {
 					result.push_back(ptr.get());
 				return result;
 			}
+
+			ObjectData* GetObjectPtr(int index) noexcept
+			{
+				if (index < 0 || index >= static_cast<int>(m_Objects.size()))
+					return nullptr;
+
+				return m_Objects[index].get();
+			}
+
+			int GetObjectCount() noexcept
+			{
+				return static_cast<int>(m_Objects.size());
+			}
+
 			
 		private:
 
