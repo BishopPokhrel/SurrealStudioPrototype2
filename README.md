@@ -20,6 +20,7 @@ This project does not use any build system, and requires MSVC and Visual Studio 
 - First, clone the GitHub repository. 
 ```bash
 git clone https://github.com/pokhrelbishop-debug/SurrealStudioPrototype2.git
+```
 
 - Open the file location in Windows Explorer
 - Open the .sln file
