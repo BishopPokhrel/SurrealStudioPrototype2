@@ -1,6 +1,7 @@
 # Surreal Studio 
 
 This is a simple prototype, not a final engine. Please follow the procedures to build **Surreal Studio**.
+Surreal Studio is an OpenGL based game engine. It serves as an experimental prototype for other engines. It uses Dear ImGui for it's UI, GLFW & GLAD for OpenGL and C++ 20 for language. 
 
 ## Prerequisites 
 
