@@ -29,6 +29,7 @@ git clone https://github.com/pokhrelbishop-debug/SurrealStudioPrototype2.git
 ```bash
 $(ProjectDir)\Source
 ```
+- **Note:** If the Additional Include Directories are already set, verify that it contains the above setting.
 - Build the solution
 
 **If the Additional Include Directories are set properly (see Procedure) and you have the required libaries, the project should build successfully.**
