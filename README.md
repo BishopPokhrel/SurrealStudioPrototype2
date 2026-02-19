@@ -24,5 +24,11 @@ git clone https://github.com/pokhrelbishop-debug/SurrealStudioPrototype2.git
 
 - Open the file location in Windows Explorer
 - Open the .sln file
-- If you have the required libaries, the project should build successfully
+- Right click the project -> Properties -> C/C++ -> General -> Additional Include Directories
+- Add this in Additonal Include Directories
+```bash
+$(ProjectDir)\Source
+```
+- Build the solution
 
+**If the Additional Include Directories are set properly (see Procedure) and you have the required libaries, the project should build successfully.**
