@@ -42,9 +42,6 @@ namespace SurrealStudio {
         static constexpr int MAX_CAMERAS_PER_WORLD = 10;
         std::vector<std::unique_ptr<Camera>> m_Cameras;
 
-    private:
-        void UpdateCameraVectors() noexcept;
-
         // Camera properties
         glm::vec3 m_Position;
         glm::vec3 m_Direction;
@@ -56,5 +53,8 @@ namespace SurrealStudio {
 
         float m_MovementSpeed;
         float m_MouseSensitivity;
+
+    private:
+        void UpdateCameraVectors() noexcept;
     };
 }
