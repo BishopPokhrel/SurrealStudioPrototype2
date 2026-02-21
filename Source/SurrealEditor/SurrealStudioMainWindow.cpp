@@ -86,7 +86,7 @@ namespace SurrealStudio {
 				/*ImGui::Begin("Surreal Studio Editor");
 				ImGui::Text("Hello, Surreal Studio!");
 				ImGui::End();*/ 
-
+			
 				// ----- Clear frame -----
 				glViewport(0, 0, 1280, 720);
 				glClearColor(0.05f, 0.05f, 0.08f, 1.0f);

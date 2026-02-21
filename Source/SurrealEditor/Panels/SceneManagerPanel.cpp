@@ -8,7 +8,6 @@ namespace SurrealStudio {
 
 		bool SceneManagerPanel::DrawCameraCreation()
 		{
-			
 			const char* c_CPTR_cameraOptions[] = {
 				"Normal", "Orthographic"
 			};
@@ -65,6 +64,21 @@ namespace SurrealStudio {
 
 		bool SceneManagerPanel::DrawLightingCreation()
 		{
+			const char* c_CPTR_lightingOptions[] = {
+				"World Environment Light", "Surreal Ambient Light", "Surreal Point Light",
+				"Surreal Spot Light", "Surreal Area Light", "Surreal Emissive Light"
+			};
+
+			bool b_OpenMaxLightObjectsReachedPerWorld_SSERROR_DialogBox = true;
+
+			if (ImGui::BeginCombo("Lighting Types", c_CPTR_lightingOptions[i_selectedLightingIndex]))
+			{
+				for (int n = 0; n < IM_ARRAYSIZE(c_CPTR_lightingOptions); n++)
+				{
+					bool b_IsLightObjectSelected = (i_selectedLightingIndex == n);
+				}
+			}
+			
 			return true;
 		}
 

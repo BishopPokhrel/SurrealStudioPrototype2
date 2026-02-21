@@ -30,7 +30,7 @@ namespace SurrealStudio {
     void Application::InitTestScene()
     {
         // -----------------------------
-        // 1️⃣ Create the cube object
+        //  Create the cube object
         // -----------------------------
         bool success = m_ObjectManager.CreateObject("Cube");
         if (!success)
@@ -87,7 +87,7 @@ namespace SurrealStudio {
         m_Shader.CompileAndLinkShaderViaGLSLShaderFiles(vertexSource, fragmentSource);
 
         // -----------------------------
-        // 3️⃣ Set camera / projection matrices
+        //  Set camera / projection matrices
         // -----------------------------
         glm::mat4 projection = glm::perspective(glm::radians(45.0f),
             1280.0f / 720.0f,

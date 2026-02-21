@@ -157,6 +157,7 @@
     <ClInclude Include="Source\Engine\EngineDefines.h" />
     <ClInclude Include="Source\Engine\ExampleCube.h" />
     <ClInclude Include="Source\Engine\InputSystem.h" />
+    <ClInclude Include="Source\Engine\Platform.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Mesh.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Renderer.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Shader.h" />

@@ -5,6 +5,18 @@
 namespace SurrealStudio {
 
 	namespace SurrealEditor {
+		
+		// TEMPORARY CODE
+		enum class LightingType
+		{
+			None = 0,
+			WorldEnvironmentLight,
+			SurrealAmbientLight,
+			SurrealPointLight, 
+			SurrealSpotLight,
+			SurrealAreaLight,
+			SurrealEmissiveLight
+		};
 
 		class SceneManagerPanel
 		{
@@ -21,6 +33,10 @@ namespace SurrealStudio {
 
 			Camera camera;
 			int i_selectedCameraIndex = 0;
+			int i_selectedLightingIndex = 0;
+
+			// temporary code, will be replaced by the actual constant in a Lighting System to be later implemented
+			const int MAX_LIGHT_OBJECTS_PER_WORLD = 25;
 		};
 	}
 }
