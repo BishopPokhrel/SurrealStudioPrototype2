@@ -37,6 +37,23 @@ namespace SurrealStudio {
 				}
 				return nullptr;
 			}
+
+			enum class ObjectType
+			{
+				None = 0,
+				Cube,
+				Sphere,
+				Capsule,
+				Plane,
+				Mesh
+			};
+
+			ObjectType objectType;
+			bool SetObjectType(ObjectType type) noexcept
+			{
+				objectType = type;
+				return true;
+			}
 		};
 
 		class ObjectManager
@@ -68,10 +85,8 @@ namespace SurrealStudio {
 				return static_cast<int>(m_Objects.size());
 			}
 
-			
-		private:
-
 			std::vector<std::unique_ptr<ObjectData>> m_Objects;
+		private:
 			ObjectData object;
 		};
 	}

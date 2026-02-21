@@ -107,42 +107,42 @@ namespace SurrealStudio {
 				{
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::WorldEnvironmentLight;
-					m_LightingObjects.push_back(newLightingObject);
+					m_LightingObjects.push_back(std::move(newLightingObject));
 					break;
 				}
 				case 1:
 				{
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealAmbientLight;
-					m_LightingObjects.push_back(newLightingObject);
+					m_LightingObjects.push_back(std::move(newLightingObject));
 					break;
 				}
 				case 2:
 				{
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealPointLight;
-					m_LightingObjects.push_back(newLightingObject);
+					m_LightingObjects.push_back(std::move(newLightingObject));
 					break;
 				}
 				case 3:
 				{
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealSpotLight;
-					m_LightingObjects.push_back(newLightingObject);
+					m_LightingObjects.push_back(std::move(newLightingObject));
 					break;
 				}
 				case 4:
 				{
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealAreaLight;
-					m_LightingObjects.push_back(newLightingObject);
+					m_LightingObjects.push_back(std::move(newLightingObject));
 					break;
 				}
 				case 5:
 				{
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealEmissiveLight;
-					m_LightingObjects.push_back(newLightingObject);
+					m_LightingObjects.push_back(std::move(newLightingObject));
 					break;
 				}
 			}
