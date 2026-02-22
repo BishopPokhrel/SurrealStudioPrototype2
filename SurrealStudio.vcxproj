@@ -138,6 +138,7 @@
     <ClCompile Include="Source\Engine\ECS\System.cpp" />
     <ClCompile Include="Source\Engine\ExampleCube.cpp" />
     <ClCompile Include="Source\Engine\InputSystem.cpp" />
+    <ClCompile Include="Source\Engine\Memory\LinearAllocator.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Mesh.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Renderer.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Shader.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Source\Engine\EngineDefines.h" />
     <ClInclude Include="Source\Engine\ExampleCube.h" />
     <ClInclude Include="Source\Engine\InputSystem.h" />
+    <ClInclude Include="Source\Engine\Memory\LinearAllocator.h" />
     <ClInclude Include="Source\Engine\Platform.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Mesh.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Renderer.h" />
