@@ -5,7 +5,6 @@
 #include "Shader.h"
 
 #include <glm/glm.hpp>
-#include <glm/glm.hpp>
 #include <vector>
 
 namespace SurrealStudio {
@@ -17,6 +16,13 @@ namespace SurrealStudio {
 			glm::vec3 position;
 			glm::vec3 normal;
 			glm::vec2 textCoords;
+		};
+
+		enum class MeshType
+		{
+			None = 0,
+			StaticMesh,
+			CustomMesh
 		};
 
 		class Mesh
@@ -35,6 +41,7 @@ namespace SurrealStudio {
 
 			void Draw() const noexcept;
 
+			MeshType meshType;
 		private:
 
 			GLuint m_VAO = 0;

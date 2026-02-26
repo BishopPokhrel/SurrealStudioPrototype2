@@ -13,6 +13,10 @@ namespace SurrealStudio {
 				"Plane Object", "Mesh Object"
 			};
 
+			const char* c_CPTR_meshTypeOptions[] = {
+				"Static Mesh", "Custom Mesh"
+			};
+
 			if (ImGui::BeginCombo("Object Types", c_CPTR_objectOptions[i_selectedObjectIndex]))
 			{
 				for (int n = 0; n < IM_ARRAYSIZE(c_CPTR_objectOptions); n++)
@@ -45,6 +49,33 @@ namespace SurrealStudio {
 				}
 				ImGui::EndPopup();
 			}
+
+			if (b_OpenMeshConfigurationTypePopup == true)
+			{
+				ImGui::OpenPopup("Mesh Type Configuration");
+				b_OpenMeshConfigurationTypePopup = false;
+			}
+
+			if (ImGui::BeginPopupModal("Mesh Type Configuration", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+			{
+				ImGui::Text("Mesh Types");
+				if (ImGui::BeginCombo("Mesh Types", c_CPTR_meshTypeOptions[i_SelectedMeshConfigurationTypeIndex]))
+				{
+					for (int n = 0; n < IM_ARRAYSIZE(c_CPTR_meshTypeOptions); n++)
+					{
+						bool b_IsMeshTypeSelected = (i_SelectedMeshConfigurationTypeIndex == n);
+						if (ImGui::Selectable(c_CPTR_meshTypeOptions[n], b_IsMeshTypeSelected))
+							i_SelectedMeshConfigurationTypeIndex = n;
+
+						if (b_IsMeshTypeSelected == true)
+							ImGui::SetItemDefaultFocus();
+					}
+					ImGui::EndCombo();
+				}
+			}
+
+			if (i_SelectedMeshConfigurationTypeIndex == 0) m_Mesh.meshType = SurrealRenderer::MeshType::StaticMesh;
+			else if (i_SelectedMeshConfigurationTypeIndex == 1) m_Mesh.meshType = SurrealRenderer::MeshType::CustomMesh;
 
 			if		(i_selectedObjectIndex == 0) m_SelectedObjectData.SetObjectType(ECS::ObjectData::ObjectType::Cube);
 			else if (i_selectedObjectIndex == 1) m_SelectedObjectData.SetObjectType(ECS::ObjectData::ObjectType::Sphere);

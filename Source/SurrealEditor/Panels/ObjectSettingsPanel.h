@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine/ECS/Object.h>
+#include <Engine/SurrealRenderer/Mesh.h>
 
 namespace SurrealStudio {
 
@@ -32,6 +33,13 @@ namespace SurrealStudio {
 
 			// buffer to add the name for deletion of object
 			char objToDeleteBuffer[512];
+
+			bool b_OpenMeshConfigurationTypePopup = true; // Open a Mesh Type Configuration popup
+			// Required when creating an Object in SS.
+
+			SurrealRenderer::Mesh m_Mesh;
+			
+			int i_SelectedMeshConfigurationTypeIndex = 0;
 		};
 	} 
 }
