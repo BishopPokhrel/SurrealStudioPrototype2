@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Engine\Application.cpp" />
     <ClCompile Include="Source\Engine\AssetManagement\Asset.cpp" />
+    <ClCompile Include="Source\Engine\AssetManagement\AssetManager.cpp" />
     <ClCompile Include="Source\Engine\AssetManagement\AssetManager.h" />
     <ClCompile Include="Source\Engine\Camera.cpp" />
     <ClCompile Include="Source\Engine\ECS\Component.cpp" />
