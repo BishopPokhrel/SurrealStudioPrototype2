@@ -27,14 +27,14 @@ namespace SurrealStudio {
 		{
 			keys[i] = (glfwGetKey(window, i) == GLFW_PRESS);
 		}
-	
+		
 		return true;
 	}
 
 	int InputSystem::IsKeyPressed(int key) const noexcept
 	{
 		if (key >= 0 && key < 512)
-			return false;
+			return 0;
 
 		return keys[key];
 	}

@@ -48,7 +48,7 @@ namespace SurrealStudio {
 				Mesh
 			};
 
-			ObjectType objectType;
+			ObjectType objectType = ObjectType::None;
 			bool SetObjectType(ObjectType type) noexcept
 			{
 				objectType = type;
@@ -80,7 +80,7 @@ namespace SurrealStudio {
 				return m_Objects[index].get();
 			}
 
-			int GetObjectCount() noexcept
+			int GetObjectCount() const noexcept
 			{
 				return static_cast<int>(m_Objects.size());
 			}
