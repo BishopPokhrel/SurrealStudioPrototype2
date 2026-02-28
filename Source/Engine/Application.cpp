@@ -57,7 +57,7 @@ namespace SurrealStudio {
         cube->transform.scale = { 1.0f, 1.0f, 1.0f };
 
         // -----------------------------
-        // 2️⃣ Compile simple shader
+        // Compile simple shader
         // -----------------------------
         const std::string vertexSource = R"(
         #version 330 core

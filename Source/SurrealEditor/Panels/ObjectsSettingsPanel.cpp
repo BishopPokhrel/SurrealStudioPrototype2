@@ -39,7 +39,7 @@ namespace SurrealStudio {
 
 			if (ImGui::BeginPopupModal("[SS ERROR] Max amount of Objects reached per World", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 			{
-				ImGui::Text("Max amount of Objects per World is ", ECS::MAX_OBJECTS, static_cast<int>(m_ObjectManager.m_Objects.size()));
+				ImGui::Text("Max amount of Objects per World is %d", ECS::MAX_OBJECTS, static_cast<int>(m_ObjectManager.m_Objects.size()));
 				
 				if (ImGui::Button("OK"))
 				{

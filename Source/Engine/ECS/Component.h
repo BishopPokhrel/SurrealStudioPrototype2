@@ -30,7 +30,7 @@ namespace SurrealStudio {
 			int index;
 		};
 
-		struct PhysicsComponent
+		struct PhysicsComponent : public ComponentMain
 		{
 			glm::vec3 velocity;
 			glm::vec3 angularVelocity;
