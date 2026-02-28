@@ -11,7 +11,8 @@ namespace SurrealStudio::AssetManagement
 		None = 0,
 		LOADED,
 		UNLOADED,
-		LOADING
+		LOADING,
+		FAILED
 	};
 
 	class Asset
@@ -21,12 +22,15 @@ namespace SurrealStudio::AssetManagement
 		~Asset() noexcept = default;
 
 		template<typename T>
-		void Load(T& assetType, const std::string& path, const std::string& assetName, LoadState loadState) noexcept;
+		void Load(T& assetType, const std::string& path, const std::string& assetName4) noexcept;
 
 		void Unload() noexcept;
 
 	private:
-
+		
+		LoadState m_LoadState = LoadState::None;
+		std::string m_Path = "";
+		std::string m_AssetName = "";
 	};
 
 	// For optimization
