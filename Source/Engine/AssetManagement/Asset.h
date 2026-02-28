@@ -22,7 +22,7 @@ namespace SurrealStudio::AssetManagement
 		~Asset() noexcept = default;
 
 		template<typename T>
-		void Load(T& assetType, const std::string& path, const std::string& assetName4) noexcept;
+		void Load(T& assetType, const std::string& path, const std::string& assetName) noexcept;
 
 		void Unload() noexcept;
 
