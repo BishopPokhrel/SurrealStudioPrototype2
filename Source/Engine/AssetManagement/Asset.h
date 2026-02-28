@@ -6,6 +6,14 @@
 
 namespace SurrealStudio::AssetManagement
 {
+	enum class LoadState
+	{
+		None = 0,
+		LOADED,
+		UNLOADED,
+		LOADING
+	};
+
 	class Asset
 	{
 	public:
@@ -13,20 +21,12 @@ namespace SurrealStudio::AssetManagement
 		~Asset() noexcept = default;
 
 		template<typename T>
-		void Load(T& assetType, const std::string& path) noexcept;
+		void Load(T& assetType, const std::string& path, const std::string& assetName, LoadState loadState) noexcept;
 
 		void Unload() noexcept;
 
 	private:
 
-	};
-
-	enum class LoadState
-	{
-		None = 0,
-		LOADED, 
-		UNLOADED,
-		LOADING
 	};
 
 	// For optimization
