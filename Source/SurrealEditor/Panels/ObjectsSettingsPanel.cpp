@@ -71,7 +71,7 @@ namespace SurrealStudio {
 							ImGui::SetItemDefaultFocus();
 					}
 					ImGui::EndCombo();
-				}
+				}	
 			}
 
 			if (i_SelectedMeshConfigurationTypeIndex == 0) m_Mesh.meshType = SurrealRenderer::MeshType::StaticMesh;
@@ -97,11 +97,235 @@ namespace SurrealStudio {
 			if (!objectData)
 				return false; // not valid
 
-			ImGui::DragFloat3("Position:", &objectData->transform.position[0], 0.1f);
-			ImGui::DragFloat3("Rotation:", &objectData->transform.rotation[0], 0.1f);
-			ImGui::DragFloat3("Scale:", &objectData->transform.scale[0], 0.1f);
+			if (ImGui::CollapsingHeader("Transform"))
+			{
+				ImGui::DragFloat3("Position:", &objectData->transform.position[0], 0.1f);
+				ImGui::DragFloat3("Rotation:", &objectData->transform.rotation[0], 0.1f);
+				ImGui::DragFloat3("Scale:", &objectData->transform.scale[0], 0.1f);
+			}
 
-			// TODO: Add more properties to edit for the objects (e.g. mesh, material, etc.)
+			if (ImGui::CollapsingHeader("Color"))
+			{
+				float objColor[4] = {
+					m_AdditionalObjectData.color.x,
+					m_AdditionalObjectData.color.y,
+					m_AdditionalObjectData.color.z,
+					m_AdditionalObjectData.color.a
+				};
+
+				ImGui::ColorEdit4("Color:", objColor);
+			}
+
+			if (ImGui::CollapsingHeader("Physics"))
+			{
+				ImGui::Checkbox("Enable Physics", &m_AdditionalObjectData.enablePhysics);
+			}
+
+			ImGui::Separator();
+			ImGui::Spacing();
+
+			if (ImGui::CollapsingHeader("Materials"))
+			{
+				const char* c_CPTR_materialTypeOptions[] = {
+					"Color Material", "Texture Material", "Custom Material"
+				};
+
+				if (ImGui::BeginCombo("Material Types", c_CPTR_materialTypeOptions[m_AdditionalObjectData.materials.i_selectedMaterialIndex]))
+				{
+					for (int n = 0; n < IM_ARRAYSIZE(c_CPTR_materialTypeOptions); n++)
+					{
+						bool b_IsMaterialTypeSelected = (m_AdditionalObjectData.materials.i_selectedMaterialIndex == n);
+						if (ImGui::Selectable(c_CPTR_materialTypeOptions[n], b_IsMaterialTypeSelected))
+							m_AdditionalObjectData.materials.i_selectedMaterialIndex = n;
+
+						if (b_IsMaterialTypeSelected == true)
+							ImGui::SetItemDefaultFocus();
+					}
+					ImGui::EndCombo();
+				}
+
+				// Check if we exceed the max limit or not
+				if (
+					m_AdditionalObjectData.materialsVec.size() > m_AdditionalObjectData.materials.MAX_COLOR_MATERIALS_PER_WORLD &&
+					m_AdditionalObjectData.materials.b_OpenMaxColorMaterialsPerWorld_SSERROR_DialogBox == true
+					)
+				{
+					ImGui::OpenPopup("[SS ERROR] Max Color Materials reached per World.");
+					m_AdditionalObjectData.materials.b_OpenMaxColorMaterialsPerWorld_SSERROR_DialogBox = false; 
+				}
+
+				if (
+					m_AdditionalObjectData.materialsVec.size() > m_AdditionalObjectData.materials.MAX_TEXTURE_MATERIALS_PER_WORLD &&
+					m_AdditionalObjectData.materials.b_OpenMaxTextureMaterialsPerWorld_SSERROR_DialogBox == true
+					)
+				{
+					ImGui::OpenPopup("[SS ERROR] Max Texture Materials reached per World.");
+					m_AdditionalObjectData.materials.b_OpenMaxTextureMaterialsPerWorld_SSERROR_DialogBox = false; 
+				}
+
+				if (
+					m_AdditionalObjectData.materialsVec.size() > m_AdditionalObjectData.materials.MAX_CUSTOM_MATERIALS_PER_WORLD &&
+					m_AdditionalObjectData.materials.b_OpenMaxCustomMaterialsPerWorld_SSERROR_DialogBox == true
+					)
+				{
+					ImGui::OpenPopup("[SS ERROR] Max Custom Materials reached per World.");
+					m_AdditionalObjectData.materials.b_OpenMaxCustomMaterialsPerWorld_SSERROR_DialogBox = false;
+				}
+
+				if (
+					m_AdditionalObjectData.materialsVec.size() > m_AdditionalObjectData.materials.MAX_OVERALL_TEXTURE_MATERIALS_PER_WORLD &&
+					m_AdditionalObjectData.materials.b_OpenMaxOverallMaterialsPerWorld_SSERROR_DialogBox == true
+					)
+				{
+					ImGui::OpenPopup("[SS ERROR] Max Materials reached per World.");
+					m_AdditionalObjectData.materials.b_OpenMaxOverallMaterialsPerWorld_SSERROR_DialogBox = false; 
+				}
+
+				// Modal writes now
+				if (ImGui::BeginPopupModal("[SS ERROR] Max Color Materials reached per World", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					ImGui::Text(
+						"Max Color Materials per World is %d (Current: %d)",
+						m_AdditionalObjectData.materials.MAX_COLOR_MATERIALS_PER_WORLD,
+						static_cast<int>(m_AdditionalObjectData.materialsVec.size())
+					);
+
+					if (ImGui::Button("OK"))
+					{
+						ImGui::CloseCurrentPopup();
+						m_AdditionalObjectData.materialsVec.resize(m_AdditionalObjectData.materials.MAX_COLOR_MATERIALS_PER_WORLD);
+						m_AdditionalObjectData.materials.b_OpenMaxColorMaterialsPerWorld_SSERROR_DialogBox = true;
+					}
+
+					ImGui::EndPopup();
+				}
+
+				if (ImGui::BeginPopupModal("[SS ERROR] Max Texture Materials reached per World", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					ImGui::Text(
+						"Max Texture Materials per World is %d (Current: %d)",
+						m_AdditionalObjectData.materials.MAX_TEXTURE_MATERIALS_PER_WORLD,
+						static_cast<int>(m_AdditionalObjectData.materialsVec.size())
+					);
+
+					if (ImGui::Button("OK"))
+					{
+						ImGui::CloseCurrentPopup();
+						m_AdditionalObjectData.materialsVec.resize(m_AdditionalObjectData.materials.MAX_TEXTURE_MATERIALS_PER_WORLD);
+						m_AdditionalObjectData.materials.b_OpenMaxTextureMaterialsPerWorld_SSERROR_DialogBox = true;
+					}
+
+					ImGui::EndPopup();
+				}
+
+				if (ImGui::BeginPopupModal("[SS ERROR] Max Custom Materials reached per World", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					ImGui::Text(
+						"Max Custom Materials per World is %d (Current: %d)",
+						m_AdditionalObjectData.materials.MAX_CUSTOM_MATERIALS_PER_WORLD,
+						static_cast<int>(m_AdditionalObjectData.materialsVec.size())
+					);
+
+					if (ImGui::Button("OK"))
+					{
+						ImGui::CloseCurrentPopup();
+						m_AdditionalObjectData.materialsVec.resize(m_AdditionalObjectData.materials.MAX_CUSTOM_MATERIALS_PER_WORLD);
+						m_AdditionalObjectData.materials.b_OpenMaxCustomMaterialsPerWorld_SSERROR_DialogBox = true;
+					}
+
+					ImGui::EndPopup();
+				}
+
+				if (ImGui::BeginPopupModal("[SS ERROR] Max Materials reached per World", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+				{
+					ImGui::Text(
+						"Max Materials per World is %d (Current: %d)",
+						m_AdditionalObjectData.materials.MAX_OVERALL_TEXTURE_MATERIALS_PER_WORLD,
+						static_cast<int>(m_AdditionalObjectData.materialsVec.size())
+					);
+
+					if (ImGui::Button("OK"))
+					{
+						ImGui::CloseCurrentPopup();
+						m_AdditionalObjectData.materialsVec.resize(m_AdditionalObjectData.materials.MAX_OVERALL_TEXTURE_MATERIALS_PER_WORLD);
+						m_AdditionalObjectData.materials.b_OpenMaxOverallMaterialsPerWorld_SSERROR_DialogBox = true; 
+					}
+
+					ImGui::EndPopup();
+				}
+
+				if (ImGui::Button("Create new Material"))
+				{
+					m_AdditionalObjectData.materials.openMaterialNamePopup = true;
+					if (m_AdditionalObjectData.materials.openMaterialNamePopup)
+					{
+						ImGui::OpenPopup("Material Name...");
+						m_AdditionalObjectData.materials.openMaterialNamePopup = false;
+					}
+
+					if (ImGui::BeginPopupModal("Material Name...", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+					{
+						ImGui::InputText("Material Name...", m_AdditionalObjectData.materials.materialNamePopupBuffer, sizeof(m_AdditionalObjectData.materials.materialNamePopupBuffer));
+						
+						if (ImGui::Button("OK"))
+						{
+							ImGui::CloseCurrentPopup();
+							std::string newMaterialName = m_AdditionalObjectData.materials.materialNamePopupBuffer;
+
+							switch (m_AdditionalObjectData.materials.i_selectedMaterialIndex)
+							{
+								case 0:
+								{
+									if (m_AdditionalObjectData.materials.hasMaterialBeenCreated)
+										break; // already been created, no need to do it again (to make sure that it doesn't repeat every frame)
+
+									auto newMaterial = std::make_unique<AdditionalObjectData::Materials>();
+									newMaterial->name = newMaterialName;
+									newMaterial->id = static_cast<int>(m_AdditionalObjectData.materialsVec.size());
+									newMaterial->materialType = AdditionalObjectData::Materials::MaterialType::ColorMaterial;
+									m_AdditionalObjectData.materialsVec.push_back(std::move(newMaterial));
+									m_AdditionalObjectData.materials.hasMaterialBeenCreated = true; 
+									break;
+								}
+
+								case 1:
+								{
+									if (m_AdditionalObjectData.materials.hasMaterialBeenCreated)
+										break; // already been created, no need to do it again (to make sure that it doesn't repeat every frame)
+
+									auto newMaterial = std::make_unique<AdditionalObjectData::Materials>();
+									newMaterial->name = newMaterialName;
+									newMaterial->id = static_cast<int>(m_AdditionalObjectData.materialsVec.size());
+									newMaterial->materialType = AdditionalObjectData::Materials::MaterialType::TextureMaterial;
+									m_AdditionalObjectData.materialsVec.push_back(std::move(newMaterial));
+									m_AdditionalObjectData.materials.hasMaterialBeenCreated = true;
+									break;
+
+								}
+
+								case 2:
+								{
+									if (m_AdditionalObjectData.materials.hasMaterialBeenCreated)
+										break; // already been created, no need to do it again (to make sure that it doesn't repeat every frame)
+
+									auto newMaterial = std::make_unique<AdditionalObjectData::Materials>();
+									newMaterial->name = newMaterialName;
+									newMaterial->id = static_cast<int>(m_AdditionalObjectData.materialsVec.size());
+									newMaterial->materialType = AdditionalObjectData::Materials::MaterialType::CustomMaterial;
+									m_AdditionalObjectData.materialsVec.push_back(std::move(newMaterial));
+									m_AdditionalObjectData.materials.hasMaterialBeenCreated = true;
+									break;
+								}
+							}
+						}
+
+						if (ImGui::Button("Cancel")) {
+							ImGui::CloseCurrentPopup();
+						}
+					}
+				}
+			}
+			
 			return true;
 		}
 

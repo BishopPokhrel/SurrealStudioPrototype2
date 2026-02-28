@@ -7,6 +7,53 @@ namespace SurrealStudio {
 
 	namespace SurrealEditor {
 
+		// TEMP CODE
+		struct AdditionalObjectData
+		{
+			glm::vec4 color;
+			bool enablePhysics = false; // enable with physics engine (LATER)
+
+			struct Materials
+			{
+				const uint32_t MAX_TEXTURE_MATERIALS_PER_WORLD = 25; // Limit to 25 texture materials per World only
+				const uint32_t MAX_CUSTOM_MATERIALS_PER_WORLD = 10; // Limit to 10 custom texture materials per World only
+				const uint32_t MAX_COLOR_MATERIALS_PER_WORLD = 50;
+				const uint32_t MAX_OVERALL_TEXTURE_MATERIALS_PER_WORLD = MAX_TEXTURE_MATERIALS_PER_WORLD + MAX_CUSTOM_MATERIALS_PER_WORLD + MAX_COLOR_MATERIALS_PER_WORLD; // Overal limit
+
+				// ImGui indices
+				int i_selectedMaterialIndex = 0;
+
+				// Popup flags (ImGui::BeginPopupModal/OpenPopup) 
+				bool b_OpenMaxTextureMaterialsPerWorld_SSERROR_DialogBox = false; // Default
+				bool b_OpenMaxCustomMaterialsPerWorld_SSERROR_DialogBox = false; // Default
+				bool b_OpenMaxOverallMaterialsPerWorld_SSERROR_DialogBox = false; // Default
+				bool b_OpenMaxColorMaterialsPerWorld_SSERROR_DialogBox = false; // Default
+
+				enum class MaterialType
+				{
+					None = 0,
+					ColorMaterial,
+					TextureMaterial,
+					CustomMaterial
+				};
+
+				MaterialType materialType = MaterialType::None;
+				
+				// to ensure that in switch statement, where we set the actual type of the materials, the materials isn't created every frame
+				bool hasMaterialBeenCreated = false;
+
+				std::string name;
+				int id;
+
+				// Variables needed for Material Name popup
+				bool openMaterialNamePopup = false; 
+				char materialNamePopupBuffer[256] = {}; // The actual buffer/name needed for ImGui::InputText.
+			};
+
+			std::vector<std::unique_ptr<Materials>> materialsVec;
+			Materials materials;
+		};
+
 		class ObjectSettingsPanel
 		{
 		public:
@@ -40,6 +87,8 @@ namespace SurrealStudio {
 			SurrealRenderer::Mesh m_Mesh;
 			
 			int i_SelectedMeshConfigurationTypeIndex = 0;
+
+			AdditionalObjectData m_AdditionalObjectData;
 		};
 	} 
 }
