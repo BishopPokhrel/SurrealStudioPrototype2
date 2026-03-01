@@ -33,10 +33,10 @@ namespace SurrealStudio {
 
 	int InputSystem::IsKeyPressed(int key) const noexcept
 	{
-		if (key >= 0 && key < 512)
+		if (key < 0 || key < 512)
 			return 0;
 
-		return keys[key];
+		return keys[key] ? 1 : 0;
 	}
 
 	bool InputSystem::GetMousePosition(float& x, float& y) const noexcept
@@ -51,5 +51,25 @@ namespace SurrealStudio {
 		dx = mouseDX;
 		dy = mouseDY;
 		return true;
+	}
+
+	void InputSystem::UpdateMousePosition(GLFWwindow* window) noexcept
+	{
+		double x, y;
+		glfwGetCursorPos(window, &x, &y);
+		
+		mouseDX = (float)(x - mouseX);
+		mouseDY = (float)(y - mouseY);
+
+		mouseX = (float)x;
+		mouseY = (float)y;
+	}
+
+	bool InputSystem::IsRightMouseButtonPressed(GLFWwindow* window) noexcept
+	{
+		if (!window)
+			return false;
+
+		return glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS;
 	}
 }

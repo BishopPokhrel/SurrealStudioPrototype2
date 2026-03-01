@@ -146,6 +146,7 @@
     <ClCompile Include="Source\Engine\SurrealRenderer\Renderer.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Shader.cpp" />
     <ClCompile Include="Source\SurrealEditor\Panels\ObjectsSettingsPanel.cpp" />
+    <ClCompile Include="Source\SurrealEditor\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="Source\SurrealEditor\Panels\SceneManagerPanel.cpp" />
     <ClCompile Include="Source\SurrealEditor\SurrealStudioMainWindow.cpp" />
     <ClCompile Include="Source\Engine\Scene\Scene.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Source\Engine\SurrealRenderer\Renderer.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Shader.h" />
     <ClInclude Include="Source\SurrealEditor\Panels\ObjectSettingsPanel.h" />
+    <ClInclude Include="Source\SurrealEditor\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="Source\SurrealEditor\Panels\SceneManagerPanel.h" />
     <ClInclude Include="Source\SurrealEditor\SurrealStudioMainWindow.h" />
     <ClInclude Include="Source\Engine\Logging.h" />

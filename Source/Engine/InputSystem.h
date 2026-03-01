@@ -15,6 +15,8 @@ namespace SurrealStudio {
 		int IsKeyPressed(int key) const noexcept;
 		bool GetMousePosition(float& x, float& y) const noexcept;
 		bool GetMouseDelta(float& dx, float& dy) const noexcept;
+		void UpdateMousePosition(GLFWwindow* window) noexcept;
+		bool IsRightMouseButtonPressed(GLFWwindow* window) noexcept;
 
 	private:
 
