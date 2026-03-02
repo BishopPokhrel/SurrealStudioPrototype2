@@ -9,6 +9,8 @@ namespace SurrealStudio {
 
 	namespace ECS {
 
+		constexpr uint32_t MAX_COMPONENTS_PER_WORLD = 10000;
+
 		struct ObjectData;
 
 		struct ComponentMain

@@ -25,7 +25,7 @@ namespace SurrealStudio {
 			{
 				if ((*it)->name == name)
 				{
-					m_Objects.erase(it);
+					m_Objects.erase(it);	
 					return true; // success
 				}
 			}
