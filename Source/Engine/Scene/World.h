@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include <Engine/ECS/Object.h>
+
 namespace SurrealStudio {
 
 	namespace SceneSystem {
@@ -11,7 +13,7 @@ namespace SurrealStudio {
 		struct WorldData
 		{
 			std::string worldName;
-			// add objects vector later
+			std::vector<std::unique_ptr<ECS::ObjectData>> objectsInWorld;
 		};
 
 		class World
