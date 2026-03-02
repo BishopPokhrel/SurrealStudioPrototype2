@@ -86,8 +86,11 @@ namespace SurrealStudio {
 			}
 
 			std::vector<std::unique_ptr<ObjectData>> m_Objects;
+
 		private:
+
 			ObjectData object;
+			int m_NextObjectID = 1;
 		};
 	}
 }

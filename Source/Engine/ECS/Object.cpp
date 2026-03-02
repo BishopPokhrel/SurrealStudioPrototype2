@@ -11,7 +11,7 @@ namespace SurrealStudio {
 		{
 			auto newObject = std::make_unique<ObjectData>();
 			newObject->name = name;
-			newObject->objectID = static_cast<int>(m_Objects.size());
+			newObject->objectID = m_NextObjectID++;
 			m_Objects.push_back(std::move(newObject));
 			return true;
 		}
