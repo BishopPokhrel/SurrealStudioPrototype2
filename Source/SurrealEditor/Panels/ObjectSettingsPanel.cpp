@@ -340,7 +340,7 @@ namespace SurrealStudio {
 
 			if (ImGui::BeginPopupModal("Surreal Studio - Object Deletion", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 			{
-				ImGui::InputText("Enter the Object Name you would like to delete... ", objToDeleteBuffer, sizeof(objToDeleteBuffer));
+				ImGui::InputInt("Enter the Object ID you would like to delete... ", objToDeleteBuffer, sizeof(objToDeleteBuffer));
 
 				if (ImGui::IsItemDeactivatedAfterEdit())
 				{
@@ -350,8 +350,7 @@ namespace SurrealStudio {
 				if (ImGui::Button("OK"))
 				{
 					ImGui::CloseCurrentPopup();
-					std::string objectNameToDelete = objToDeleteBuffer;
-					m_ObjectManager.DestroyObject(objectNameToDelete);
+					m_ObjectManager.DestroyObject((uint64_t)objToDeleteBuffer);
 				}
 
 				if (ImGui::Button("Cancel")) {

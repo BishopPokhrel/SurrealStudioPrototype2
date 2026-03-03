@@ -79,7 +79,7 @@ namespace SurrealStudio {
 			bool b_OpenObjectDeletionConfirmation_SSERROR_DialogBox = false; // So that the popup doesn't randomly open at times when the user doesn't want to delete an object
 
 			// buffer to add the name for deletion of object
-			char objToDeleteBuffer[512];
+			int objToDeleteBuffer[512];
 
 			bool b_OpenMeshConfigurationTypePopup = true; // Open a Mesh Type Configuration popup
 			// Required when creating an Object in SS.
