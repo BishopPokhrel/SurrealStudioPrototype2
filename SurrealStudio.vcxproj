@@ -145,7 +145,7 @@
     <ClCompile Include="Source\Engine\SurrealRenderer\Mesh.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Renderer.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Shader.cpp" />
-    <ClCompile Include="Source\SurrealEditor\Panels\ObjectsSettingsPanel.cpp" />
+    <ClCompile Include="Source\SurrealEditor\Panels\ObjectSettingsPanel.cpp" />
     <ClCompile Include="Source\SurrealEditor\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="Source\SurrealEditor\Panels\SceneManagerPanel.cpp" />
     <ClCompile Include="Source\SurrealEditor\SurrealStudioMainWindow.cpp" />
