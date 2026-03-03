@@ -47,5 +47,32 @@ namespace SurrealStudio {
 			static const std::string emptyString = "";
 			return emptyString;
 		}
+
+		std::optional<ObjectID> ObjectManager::GetObjectIDByName(const std::string& name) const noexcept
+		{
+			for (const auto& obj : m_Objects)
+			{
+				if (obj->name == name)
+				{
+					return obj->objectID;
+				}
+			}
+
+			return std::nullopt;
+		}
+
+		bool ObjectManager::RenameObject(ObjectID id, const std::string& newName) noexcept
+		{
+			for (auto& obj : m_Objects)
+			{
+				if (obj->objectID == id)
+				{
+					obj->name = newName;
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }

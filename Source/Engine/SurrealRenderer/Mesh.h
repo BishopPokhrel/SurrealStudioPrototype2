@@ -29,9 +29,6 @@ namespace SurrealStudio {
 		{
 		public:
 
-			Mesh(const Mesh&) = delete;
-			Mesh& operator=(const Mesh&) = delete;
-
 			Mesh(Mesh&&) noexcept;
 			Mesh& operator=(Mesh&&) noexcept;
 

@@ -3,17 +3,17 @@
 
 namespace SurrealStudio {
 
-    Camera::Camera(const glm::vec3& startPosition, const glm::vec3& startUp, float startYaw, float startPitch) noexcept
+    Camera::Camera() noexcept
+        : m_Position(0.0f, 0.0f, 3.0f),
+        m_Up(0.0f, 1.0f, 0.0f),
+        m_Yaw(-90.0f),
+        m_Pitch(0.0f),
+        cameraType(CameraType::None),
+        m_Direction(0.0f, 0.0f, 0.0f),
+        m_Right(0.0f, 0.0f, 0.0f),
+        m_MouseSensitivity(0.0f),
+        m_MovementSpeed(0.0f)
     {
-        m_Position = startPosition;
-        m_Up = startUp;
-        m_Yaw = startYaw;
-        m_Pitch = startPitch;
-
-        m_MovementSpeed = 5.0f;
-        m_MouseSensitivity = 0.1f;
-
-        UpdateCameraVectors();
     }
 
     void Camera::MoveForward(float deltaTime) noexcept

@@ -40,6 +40,7 @@ namespace SurrealStudio {
 								m_ObjectManager.m_Objects.resize((size_t)ECS::MAX_OBJECTS); // Clamp to the max value ig
 								m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openAddObjectNamePopupDialogBox = true; // Reset
 							}
+							ImGui::EndPopup();
 						}
 
 						m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openAddObjectNamePopupDialogBox = true; 
@@ -99,6 +100,7 @@ namespace SurrealStudio {
 								{
 									ImGui::CloseCurrentPopup();
 								}
+								ImGui::EndPopup();
 							}
 						}
 
@@ -128,6 +130,7 @@ namespace SurrealStudio {
 								{
 									ImGui::CloseCurrentPopup();
 								}
+								ImGui::EndPopup();
 							}
 						}
 
@@ -160,6 +163,7 @@ namespace SurrealStudio {
 							{
 								ImGui::CloseCurrentPopup();
 							}
+							ImGui::EndPopup();
 						}
 					}
 
@@ -184,12 +188,63 @@ namespace SurrealStudio {
 								std::string newWorldName = m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.worldNameRequiredForWorldCreationBuffer;
 								m_World.AddWorld(newWorldName);
 							}
+							ImGui::EndPopup();
 						}
 					}
 
 					if (ImGui::MenuItem("Rename Object"))
 					{
+						m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openRenameObjectPopupDialogBox = true;
+						if (m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openRenameObjectPopupDialogBox)
+						{
+							ImGui::OpenPopup("Rename Object");
+							m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openRenameObjectPopupDialogBox = false; 
+						}
 
+						if (ImGui::BeginPopupModal("Rename Object", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+						{
+							ImGui::InputText("Old Object Name...",
+								m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.oldObjName_RenameObject_RequiredNameBuffer,
+								sizeof(m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.oldObjName_RenameObject_RequiredNameBuffer));
+
+							if (ImGui::IsItemDeactivatedAfterEdit())
+							{
+								ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please enter the old Object Name!");
+							}
+
+							ImGui::InputText("Object Name...",
+								m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.objToRename_RequiredNameBuffer, sizeof(m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.objToRename_RequiredNameBuffer));
+
+							if (ImGui::IsItemDeactivatedAfterEdit())
+							{
+								ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please enter a Object Name!");
+							}
+
+							if (ImGui::Button("OK"))
+							{
+								ImGui::CloseCurrentPopup();
+								std::string newRenamedObject = m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.objToRename_RequiredNameBuffer;
+								std::string oldRenamedObject = m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.oldObjName_RenameObject_RequiredNameBuffer; // to get the actual id of it
+								auto oldObjectIDOpt = m_ObjectManager.GetObjectIDByName(oldRenamedObject);
+
+								if (oldObjectIDOpt)
+								{
+									ECS::ObjectID oldObjectID = *oldObjectIDOpt;
+									m_ObjectManager.RenameObject(oldObjectID, newRenamedObject);
+								}
+								else
+								{
+									ImGui::TextColored(ImVec4(1, 0, 0, 1), "Object not found!");
+								}
+							}
+
+							ImGui::SameLine();
+							if (ImGui::Button("Cancel"))
+							{
+								ImGui::CloseCurrentPopup();
+							}
+							ImGui::EndPopup();
+						}
 					}
 
 					ImGui::EndMenu();

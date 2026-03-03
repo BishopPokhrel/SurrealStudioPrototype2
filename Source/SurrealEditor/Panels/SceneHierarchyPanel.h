@@ -19,6 +19,10 @@ namespace SurrealStudio {
 				char objToAdd_NameRequiredBuffer[512];
 				bool openAddObjectNamePopupDialogBox = false; // To open an ImGui popup to add a name for the Object.
 				bool openMaxObjectsReached_PerWorld_SSERROR_DialogBox_SHP = false; // To prevent mulitple variables having the same name
+
+				char objToRename_RequiredNameBuffer[512];
+				char oldObjName_RenameObject_RequiredNameBuffer[512]; 
+				bool openRenameObjectPopupDialogBox = false; 
 			};
 
 			struct ComponentDataNeeded
@@ -46,6 +50,8 @@ namespace SurrealStudio {
 		{
 		public:
 
+			SceneHierarchyPanel() = default;
+
 			bool DrawSceneHierarchy();
 			bool DrawCommandPalette();  // Trigged when right clicked
 			bool DrawSceneHierarchyPanel();
@@ -68,4 +74,4 @@ namespace SurrealStudio {
 			SceneSystem::WorldData m_WorldData;
 		};
 	}
-}
+} 

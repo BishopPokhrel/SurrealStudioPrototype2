@@ -8,19 +8,21 @@
 
 #include "ExampleCube.h"
 
+#include <memory>
+
 namespace SurrealStudio {
 
 	class Application
 	{
 	public:
-
+		Application() = default;
 		bool EngineInit();
 		bool EngineRun(int argc, char** argv);
 		bool EngineShutdown();
 
 		void InitTestScene();
 
-		static Application* CreateApplication();
+		static std::unique_ptr<Application> CreateApplication();
 		SurrealEditor::SurrealStudioMainWindow m_Window;
 		ECS::ObjectManager m_ObjectManager;
 		ECS::TransformComponentManager m_TransformManager;
@@ -28,6 +30,5 @@ namespace SurrealStudio {
 		SurrealRenderer::Shader m_Shader;
 
 		ExampleCube exampleCube;
-
 	};
 }

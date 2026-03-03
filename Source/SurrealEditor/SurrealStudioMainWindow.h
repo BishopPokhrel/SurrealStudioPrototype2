@@ -2,6 +2,10 @@
 
 #define GLFW_INCLUDE_NONE
 
+#include <SurrealEditor/Panels/ObjectSettingsPanel.h>
+#include <SurrealEditor/Panels/SceneHierarchyPanel.h>
+#include <SurrealEditor/Panels/SceneManagerPanel.h>
+
 #include "GLFW/glfw3.h"
 
 namespace SurrealStudio {
@@ -25,6 +29,10 @@ namespace SurrealStudio {
         private:
             GLFWwindow* m_SurrealStudioWindow = nullptr;
             SurrealStudio::Application* m_Application = nullptr;
+
+            SurrealEditor::SceneHierarchyPanel m_SceneHierarchyPanel;
+            SurrealEditor::SceneManagerPanel m_SceneManagerPanel;
+            SurrealEditor::ObjectSettingsPanel m_ObjectSettingsPanel;
         };
     }
 }

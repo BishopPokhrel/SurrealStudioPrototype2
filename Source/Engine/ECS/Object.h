@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <optional>
 
 #include <Engine/SurrealRenderer/Shader.h>
 #include <Engine/SurrealRenderer/Mesh.h>
@@ -66,6 +67,7 @@ namespace SurrealStudio {
 			ObjectID DestroyObject(ObjectID id) noexcept;
 
 			const std::string& GetObjectNameByID(ObjectID id) const noexcept;
+			std::optional<ObjectID> GetObjectIDByName(const std::string& name) const noexcept;
 			std::vector<ObjectData*> GetAllObjects()
 			{
 				std::vector<ObjectData*> result;
@@ -73,6 +75,8 @@ namespace SurrealStudio {
 					result.push_back(ptr.get());
 				return result;
 			}
+
+			bool RenameObject(ObjectID id, const std::string& name) noexcept; 
 
 			ObjectData* GetObjectPtr(int index) noexcept
 			{

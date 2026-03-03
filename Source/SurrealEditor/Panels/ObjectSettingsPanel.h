@@ -84,7 +84,9 @@ namespace SurrealStudio {
 			bool b_OpenMeshConfigurationTypePopup = true; // Open a Mesh Type Configuration popup
 			// Required when creating an Object in SS.
 
-			SurrealRenderer::Mesh m_Mesh;
+			SurrealRenderer::Vertex vertex{ {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f} };
+			std::vector<unsigned int> indices;
+			SurrealRenderer::Mesh m_Mesh = SurrealRenderer::Mesh(vertex, indices);
 			
 			int i_SelectedMeshConfigurationTypeIndex = 0;
 

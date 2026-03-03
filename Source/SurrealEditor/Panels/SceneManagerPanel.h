@@ -49,7 +49,6 @@ namespace SurrealStudio {
 
 		private:
 
-			Camera camera;
 			int i_selectedCameraIndex = 0;
 			int i_selectedLightingIndex = 0;
 
@@ -81,6 +80,8 @@ namespace SurrealStudio {
 			// Flag to ask the user to add a World name (see .cpp file implementation for further details)
 			bool b_AskUserForWorldName = false;
 			char bufferForWorldNamePopup[512]; // The buffer required for ImGui::InputText. See .cpp file implementation for further details
+
+			Camera camera;
 		};
 	}
 };

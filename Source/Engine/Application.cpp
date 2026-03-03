@@ -2,6 +2,7 @@
 #include "Logging.h"
 
 #include <SurrealEditor/SurrealStudioMainWindow.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "ExampleCube.h"
@@ -20,7 +21,7 @@ namespace SurrealStudio {
         m_Window.CreateWindow(800, 600, "Surreal Studio");
         m_Window.SetApplication(this);
         
-        InitTestScene();
+        //InitTestScene();
 
         m_Window.MainLoop();
         SS_INFO("Engine is running!");
@@ -109,8 +110,8 @@ namespace SurrealStudio {
         return true;
     }
 
-    Application* Application::CreateApplication()
+    std::unique_ptr<Application> Application::CreateApplication()
     {
-        return new Application();
+        return std::make_unique<Application>();
     }
 }

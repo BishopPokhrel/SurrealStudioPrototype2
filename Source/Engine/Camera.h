@@ -11,7 +11,7 @@ namespace SurrealStudio {
     class Camera
     {
     public:
-        Camera(const glm::vec3& startPosition, const glm::vec3& startUp, float startYaw, float startPitch) noexcept;
+        Camera() noexcept;
 
         // Movement
         void MoveForward(float deltaTime) noexcept;
