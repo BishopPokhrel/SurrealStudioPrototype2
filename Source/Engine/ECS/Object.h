@@ -14,6 +14,8 @@ namespace SurrealStudio {
 
 	namespace ECS {
 
+		using ObjectID = uint64_t;
+
 		class Component;
 
 		constexpr unsigned int MAX_OBJECTS = 5000;
@@ -60,10 +62,10 @@ namespace SurrealStudio {
 		{
 		public:
 
-			bool CreateObject(const std::string& name) noexcept;
-			bool DestroyObject(const std::string& name) noexcept;
+			ObjectID CreateObject(const std::string& name) noexcept;
+			ObjectID DestroyObject(ObjectID id) noexcept;
 
-			std::string GetObject(int index) const noexcept;
+			const std::string& GetObjectNameByID(ObjectID id) const noexcept;
 			std::vector<ObjectData*> GetAllObjects()
 			{
 				std::vector<ObjectData*> result;

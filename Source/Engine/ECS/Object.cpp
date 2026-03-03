@@ -7,40 +7,45 @@ namespace SurrealStudio {
 
 	namespace ECS {
 
-		bool ObjectManager::CreateObject(const std::string& name) noexcept
+		ObjectID ObjectManager::CreateObject(const std::string& name) noexcept
 		{
 			auto newObject = std::make_unique<ObjectData>();
 			newObject->name = name;
 			newObject->objectID = m_NextObjectID++;
 			m_Objects.push_back(std::move(newObject));
-			return true;
+			return newObject->objectID;
 		}
 
-		bool ObjectManager::DestroyObject(const std::string& name) noexcept
+		ObjectID ObjectManager::DestroyObject(ObjectID id) noexcept
 		{
 			if (m_Objects.empty())
-				return false;
+				return 1;
+
 			
 			for (auto it = m_Objects.begin(); it != m_Objects.end(); it++)
 			{
-				if ((*it)->name == name)
+				if ((*it)->objectID == id)
 				{
 					m_Objects.erase(it);	
-					return true; // success
+					return 0; // success
 				}
 			}
-
+				
 			// fail
-			std::cout << "Failed to destroy Object " << name << ".\n";
+			std::cout << "Failed to destroy Object with ID " << id;
 			return false;
 		}
 
-		std::string ObjectManager::GetObject(int index) const noexcept
+		const std::string& ObjectManager::GetObjectNameByID(ObjectID id) const noexcept
 		{
-			if (index < 0 || index >= static_cast<int>(m_Objects.size()))
-				return ""; // invalid ID
+			for (const auto& obj : m_Objects)
+			{
+				if (obj->objectID == id)
+					return obj->name;
+			}
 
-			return m_Objects[index]->name;
+			static const std::string emptyString = "";
+			return emptyString;
 		}
 	}
 }
