@@ -91,21 +91,105 @@ namespace SurrealStudio {
 								if (ImGui::Button("OK"))
 								{
 									ImGui::CloseCurrentPopup();
-									std::string objectNameToBeAChildOfComponent = m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.objectNameRequiredForComponentCreation;
-									ECS::ObjectData objectDataToBePassedInForComponentCreation;
-									objectDataToBePassedInForComponentCreation.name = objectNameToBeAChildOfComponent;
-									// No need to fill other properties
-									m_ComponentManager.transformComponentManager.AddTransformComponent(objectDataToBePassedInForComponentCreation, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, {0.0f, 0.0f, 0.0f});
+									std::string objectNameForTransformComponentToBeChildOfObject = m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.objectNameRequiredForComponentCreation;
+									m_ComponentManager.transformComponentManager.AddTransformComponent(objectNameForTransformComponentToBeChildOfObject, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, {0.0f, 0.0f, 0.0f});
+								}
+
+								if (ImGui::Button("Cancel"))
+								{
+									ImGui::CloseCurrentPopup();
 								}
 							}
 						}
 
 						if (ImGui::MenuItem("Add Physics Component"))
 						{
+							m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.initalPhysicsComponentPropertiesToBeFilled = true;
+							if (m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.initalPhysicsComponentPropertiesToBeFilled)
+							{
+								ImGui::OpenPopup("Initial Physics Component Properties");
+								m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.initalPhysicsComponentPropertiesToBeFilled = false; 
+							}
 
+							if (ImGui::BeginPopupModal("Initial Physics Component Properties", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+							{
+								ImGui::InputText("Object Name (which Object the Component should be a child of)",
+									m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.objectNameRequiredForComponentCreation,
+									sizeof(m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.objectNameRequiredForComponentCreation));
+
+								if (ImGui::Button("OK"))
+								{
+									ImGui::CloseCurrentPopup();
+									std::string objectNameForPhysicsComponentToBeChildOfObject = m_SceneHierarchyPanelAdditionalDataNeeded.componentDataNeeded.objectNameRequiredForComponentCreation;
+									m_ComponentManager.physicsComponentManager.AddPhysicsComponent(objectNameForPhysicsComponentToBeChildOfObject, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f });
+								}
+
+								if (ImGui::Button("Cancel"))
+								{
+									ImGui::CloseCurrentPopup();
+								}
+							}
 						}
 
 						ImGui::EndMenu();
+					}
+
+					if (ImGui::MenuItem("Add Subscene"))
+					{
+						m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.openSubsceneNamePopup_NeededForSubsceneCreation = true;
+						if (m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.openSubsceneNamePopup_NeededForSubsceneCreation)
+						{
+							ImGui::OpenPopup("Subscene Name");
+							m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.openSubsceneNamePopup_NeededForSubsceneCreation = false; 
+						}
+
+						if (ImGui::BeginPopupModal("Subscene Name", nullptr, ImGuiWindowFlags_AlwaysAutoResize)) 
+						{
+							ImGui::InputText("Enter the Subscene name...",
+								m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.subsceneNameRequiredForSubsceneCreationBuffer,
+								sizeof(m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.subsceneNameRequiredForSubsceneCreationBuffer));
+
+							if (ImGui::Button("OK"))
+							{
+								ImGui::CloseCurrentPopup();
+								std::string newSubsceneName = m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.subsceneNameRequiredForSubsceneCreationBuffer;
+								m_Subscene.AddSubscene(newSubsceneName);
+							}
+
+							if (ImGui::Button("Cancel"))
+							{
+								ImGui::CloseCurrentPopup();
+							}
+						}
+					}
+
+					if (ImGui::MenuItem("Add World"))
+					{
+						m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.openWorldNamePopup_NeededForWorldCreation = true;
+						if (m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.openWorldNamePopup_NeededForWorldCreation)
+						{
+							ImGui::OpenPopup("World Name");
+							m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.openWorldNamePopup_NeededForWorldCreation = false;
+						}
+
+						if (ImGui::BeginPopupModal("World Name", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+						{
+							ImGui::InputText("Enter the World name...",
+								m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.worldNameRequiredForWorldCreationBuffer,
+								sizeof(m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.worldNameRequiredForWorldCreationBuffer));
+
+							if (ImGui::Button("OK"))
+							{
+								ImGui::CloseCurrentPopup();
+								std::string newWorldName = m_SceneHierarchyPanelAdditionalDataNeeded.subsceneAndWorldDataNeeded.worldNameRequiredForWorldCreationBuffer;
+								m_World.AddWorld(newWorldName);
+							}
+						}
+					}
+
+					if (ImGui::MenuItem("Rename Object"))
+					{
+
 					}
 
 					ImGui::EndMenu();

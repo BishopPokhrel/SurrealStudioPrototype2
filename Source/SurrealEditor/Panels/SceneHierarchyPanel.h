@@ -25,10 +25,19 @@ namespace SurrealStudio {
 			{
 				char objectNameRequiredForComponentCreation[512]; // To ensure that a Component is at least a child of an Object.
 				bool initalTransformComponentPropertiesToBeFilled = false; 
-				
-
+				bool initalPhysicsComponentPropertiesToBeFilled = false; 
 			};
 
+			struct SubsceneAndWorldDataNeeded
+			{
+				char subsceneNameRequiredForSubsceneCreationBuffer[512];
+				char worldNameRequiredForWorldCreationBuffer[512];
+
+				bool openSubsceneNamePopup_NeededForSubsceneCreation = false; 
+				bool openWorldNamePopup_NeededForWorldCreation = false; 
+			};
+
+			SubsceneAndWorldDataNeeded subsceneAndWorldDataNeeded;
 			ComponentDataNeeded componentDataNeeded;
 			ObjectDataNeeded objectDataNeeded;
 		};
