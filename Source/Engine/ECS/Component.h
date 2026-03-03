@@ -49,8 +49,8 @@ namespace SurrealStudio {
 		{
 		public:
 
-			bool AddTransformComponent(const ObjectData& objectName,glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) noexcept;
-			bool DeleteTransformComponent(const ObjectData& objectName) noexcept;
+			bool AddTransformComponent(const std::string& objectName,glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) noexcept;
+			bool DeleteTransformComponent(const std::string& objectName) noexcept;
 			
 			std::vector<TransformComponent*> GetAllTransformComponents() const noexcept
 			{
@@ -70,8 +70,8 @@ namespace SurrealStudio {
 		{
 		public:
 
-			bool AddPhysicsComponent(const ObjectData& objectName, glm::vec3 velocity, glm::vec3 angularVelocity, glm::vec3 scaleVelocity) noexcept;
-			bool DeletePhysicsComponent(const ObjectData& objectName) noexcept;
+			bool AddPhysicsComponent(const std::string& objectName, glm::vec3 velocity, glm::vec3 angularVelocity, glm::vec3 scaleVelocity) noexcept;
+			bool DeletePhysicsComponent(const std::string& objectName) noexcept;
 			std::vector<PhysicsComponent*> GetAllPhysicsComponents() const noexcept
 			{
 				std::vector<PhysicsComponent*> result;
