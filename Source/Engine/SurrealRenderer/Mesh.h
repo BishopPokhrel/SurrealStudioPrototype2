@@ -29,6 +29,8 @@ namespace SurrealStudio {
 		{
 		public:
 
+			Mesh() = default;
+
 			Mesh(Mesh&&) noexcept;
 			Mesh& operator=(Mesh&&) noexcept;
 
@@ -37,6 +39,8 @@ namespace SurrealStudio {
 
 
 			void Draw() const noexcept;
+
+			void LoadToGPU() noexcept { SetupMesh(); }
 
 			MeshType meshType;
 		private:

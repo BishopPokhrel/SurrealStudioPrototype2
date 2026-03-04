@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
+#include <iostream>
+
 namespace SurrealStudio {
 
 	namespace SurrealRenderer {
@@ -12,7 +14,7 @@ namespace SurrealStudio {
 		Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int> indices) noexcept
 			: m_Vertices(vertices), m_Indices(indices), m_EBO(0), m_VAO(0), m_VBO(0)
 		{
-			SetupMesh();
+			//SetupMesh();
 		}
 
 		Mesh::~Mesh() noexcept
@@ -27,7 +29,8 @@ namespace SurrealStudio {
 			m_VBO(other.m_VBO),
 			m_EBO(other.m_EBO),
 			m_Vertices(std::move(other.m_Vertices)),
-			m_Indices(std::move(other.m_Indices))
+			m_Indices(std::move(other.m_Indices)),
+			meshType(MeshType::None)
 		{
 			other.m_VAO = 0;
 			other.m_VBO = 0;
@@ -82,6 +85,11 @@ namespace SurrealStudio {
 		{
 			if (m_Vertices.empty())
 				return;
+
+			if (!glGenBuffers)
+			{
+				std::cout << "glGenBuffers is NULL!\n";
+			}
 
 			glGenVertexArrays(1, &m_VAO);
 			glGenBuffers(1, &m_VBO);
