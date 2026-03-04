@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Engine/InputSystem.h>
 #include <Engine/ECS/Object.h>
 #include <Engine/ECS/Component.h>
 
@@ -59,7 +58,6 @@ namespace SurrealStudio {
 		private:
 
 			SceneHierarchyPanelAdditionalDataNeeded m_SceneHierarchyPanelAdditionalDataNeeded;
-			InputSystem m_InputSystem;
 			GLFWwindow* m_Window; 
 
 			bool m_OpenCommandPalttleDialogBox = false; 

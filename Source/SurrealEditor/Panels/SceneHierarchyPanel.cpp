@@ -260,9 +260,7 @@ namespace SurrealStudio {
 			ImGui::Begin("Scene Hierarchy Panel");
 
 			DrawSceneHierarchy();
-
-			if (m_InputSystem.IsRightMouseButtonPressed(m_Window))
-				DrawCommandPalette();
+			DrawCommandPalette();
 
 			ImGui::End();
 			return true;

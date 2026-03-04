@@ -95,23 +95,23 @@ namespace SurrealStudio {
 				glEnable(GL_DEPTH_TEST);
 
 				// ----- Render Cube (or all objects) -----
-				if (m_Application) // make sure pointer to your Application exists
-				{
-					// Bind cube shader
-					m_Application->m_Shader.Bind();
+				//if (m_Application) // make sure pointer to your Application exists
+				//{
+				//	// Bind cube shader
+				//	m_Application->m_Shader.Bind();
 
-					// Update camera & projection
-					m_Application->m_Shader.SetMat4("view", view);
-					m_Application->m_Shader.SetMat4("projection", projection);
+				//	// Update camera & projection
+				//	m_Application->m_Shader.SetMat4("view", view);
+				//	m_Application->m_Shader.SetMat4("projection", projection);
 
-					// Render all ECS objects (cube)
-					m_Application->m_Renderer.RenderAllObjects(
-						m_Application->m_ObjectManager,
-						m_Application->m_TransformManager
-					);
+				//	// Render all ECS objects (cube)
+				//	m_Application->m_Renderer.RenderAllObjects(
+				//		m_Application->m_ObjectManager,
+				//		m_Application->m_TransformManager
+				//	);
 
-					m_Application->m_Shader.Unbind();
-				}
+				//	m_Application->m_Shader.Unbind();
+				//}
 
 				// ----- Render ImGui on top -----
 				ImGui::Render();

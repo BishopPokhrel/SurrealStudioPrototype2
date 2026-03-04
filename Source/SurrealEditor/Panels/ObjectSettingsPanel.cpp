@@ -71,7 +71,24 @@ namespace SurrealStudio {
 							ImGui::SetItemDefaultFocus();
 					}
 					ImGui::EndCombo();
-				}	
+				}
+
+				if (i_SelectedMeshConfigurationTypeIndex == 0)
+				{
+					m_Mesh.meshType = SurrealRenderer::MeshType::StaticMesh;
+				}
+
+				if (i_SelectedMeshConfigurationTypeIndex == 1)
+				{
+					m_Mesh.meshType = SurrealRenderer::MeshType::CustomMesh;
+				}
+
+				if (ImGui::Button("OK"))
+				{
+					ImGui::CloseCurrentPopup();
+				}
+
+				ImGui::EndPopup();
 			}
 
 			if (i_SelectedMeshConfigurationTypeIndex == 0) m_Mesh.meshType = SurrealRenderer::MeshType::StaticMesh;
@@ -322,6 +339,7 @@ namespace SurrealStudio {
 						if (ImGui::Button("Cancel")) {
 							ImGui::CloseCurrentPopup();
 						}
+						ImGui::EndPopup();
 					}
 				}
 			}
@@ -356,6 +374,7 @@ namespace SurrealStudio {
 				if (ImGui::Button("Cancel")) {
 					ImGui::CloseCurrentPopup();
 				}
+				ImGui::EndPopup();
 			}
 
 			return true;
