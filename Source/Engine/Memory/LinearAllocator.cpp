@@ -30,15 +30,15 @@ namespace SurrealStudio::Memory {
 	void* LinearAllocator::Allocate(size_t size, size_t alignment) noexcept
 	{
 		if (alignment == 0)
-			return nullptr;
+			alignment = alignof(std::max_align_t);
 
 		char* currentAddress = m_Start + m_Offset;
 		void* alignedAddress = (void*)AlignForward((size_t)currentAddress, alignment);
 		size_t padding = (size_t)alignedAddress - (size_t)currentAddress;
 		size_t newOffset = m_Offset + padding + size;
 
-		if (newOffset > m_Size)
-			assert(false && "Allocator overflow!");
+		if (m_Offset + padding + size > m_Size)
+			assert(false);
 
 		m_Offset = newOffset;
 		return alignedAddress;
