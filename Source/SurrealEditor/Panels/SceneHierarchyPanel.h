@@ -22,6 +22,9 @@ namespace SurrealStudio {
 				char objToRename_RequiredNameBuffer[512];
 				char oldObjName_RenameObject_RequiredNameBuffer[512]; 
 				bool openRenameObjectPopupDialogBox = false; 
+
+				char objToRemove_RequiredNameBuffer[512];
+				bool openRemoveObjectPopupDialogBox = false;
 			};
 
 			struct ComponentDataNeeded

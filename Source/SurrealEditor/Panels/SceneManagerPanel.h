@@ -34,6 +34,8 @@ namespace SurrealStudio {
 			};
 
 			LightingType lightingType;	
+
+			bool hasLightingObjectBeenCreated = false; 
 		};
 
 		class SceneManagerPanel

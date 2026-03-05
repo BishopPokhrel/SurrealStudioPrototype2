@@ -8,6 +8,7 @@ namespace SurrealStudio {
 
 		bool SceneHierarchyPanel::DrawSceneHierarchy()
 		{
+
 			return true; 
 		}
 
@@ -231,6 +232,47 @@ namespace SurrealStudio {
 								{
 									ECS::ObjectID oldObjectID = *oldObjectIDOpt;
 									m_ObjectManager.RenameObject(oldObjectID, newRenamedObject);
+								}
+								else
+								{
+									ImGui::TextColored(ImVec4(1, 0, 0, 1), "Object not found!");
+								}
+							}
+
+							ImGui::SameLine();
+							if (ImGui::Button("Cancel"))
+							{
+								ImGui::CloseCurrentPopup();
+							}
+							ImGui::EndPopup();
+
+						}
+					}
+
+					if (ImGui::MenuItem("Remove Object"))
+					{
+						m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openRemoveObjectPopupDialogBox = true;
+						if (m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openRemoveObjectPopupDialogBox)
+						{
+							ImGui::OpenPopup("Remove Object");
+							m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.openRemoveObjectPopupDialogBox = false; 
+						}
+
+						if (ImGui::BeginPopupModal("Remove Object", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+						{
+							ImGui::Text("Enter the Object name you wish to remove.");
+							ImGui::InputText("Object Name...", m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.objToRemove_RequiredNameBuffer, sizeof(m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.objToRemove_RequiredNameBuffer));
+							
+							if (ImGui::Button("OK"))
+							{
+								ImGui::CloseCurrentPopup();
+								std::string objToRemoveName = m_SceneHierarchyPanelAdditionalDataNeeded.objectDataNeeded.objToRemove_RequiredNameBuffer;
+								auto objectIDToGet = m_ObjectManager.GetObjectIDByName(objToRemoveName);
+								
+								if (objectIDToGet)
+								{
+									ECS::ObjectID objectToRemoveID = *objectIDToGet;
+									m_ObjectManager.DestroyObject(objectToRemoveID);
 								}
 								else
 								{

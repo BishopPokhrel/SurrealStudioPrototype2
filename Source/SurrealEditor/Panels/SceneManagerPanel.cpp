@@ -105,44 +105,68 @@ namespace SurrealStudio {
 			{
 				case 0:
 				{
+					if (lighting.hasLightingObjectBeenCreated)
+						break; // no need to continue, lighting object has already been created.
+
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::WorldEnvironmentLight;
 					m_LightingObjects.push_back(std::move(newLightingObject));
+					lighting.hasLightingObjectBeenCreated = true; 
 					break;
 				}
 				case 1:
 				{
+					if (lighting.hasLightingObjectBeenCreated)
+						break; // no need to continue, lighting object has already been created.
+
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealAmbientLight;
 					m_LightingObjects.push_back(std::move(newLightingObject));
+					lighting.hasLightingObjectBeenCreated = true;
 					break;
 				}
 				case 2:
 				{
+					if (lighting.hasLightingObjectBeenCreated)
+						break; // no need to continue, lighting object has already been created.
+
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealPointLight;
 					m_LightingObjects.push_back(std::move(newLightingObject));
+					lighting.hasLightingObjectBeenCreated = true;
 					break;
 				}
 				case 3:
 				{
+					if (lighting.hasLightingObjectBeenCreated)
+						break; // no need to continue, lighting object has already been created.
+
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealSpotLight;
 					m_LightingObjects.push_back(std::move(newLightingObject));
+					lighting.hasLightingObjectBeenCreated = true;
 					break;
 				}
 				case 4:
 				{
+					if (lighting.hasLightingObjectBeenCreated)
+						break; // no need to continue, lighting object has already been created.
+
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealAreaLight;
 					m_LightingObjects.push_back(std::move(newLightingObject));
+					lighting.hasLightingObjectBeenCreated = true;
 					break;
 				}
 				case 5:
 				{
+					if (lighting.hasLightingObjectBeenCreated)
+						break; // no need to continue, lighting object has already been created.
+
 					auto newLightingObject = std::make_unique<Lighting>();
 					newLightingObject->lightingType = Lighting::LightingType::SurrealEmissiveLight;
 					m_LightingObjects.push_back(std::move(newLightingObject));
+					lighting.hasLightingObjectBeenCreated = true;
 					break;
 				}
 			}
@@ -250,7 +274,7 @@ namespace SurrealStudio {
 					if (b_AskUserForWorldName)
 					{
 						ImGui::OpenPopup("World Name");
-						b_AskUserForSubsceneName = false;
+						b_AskUserForWorldName = false;
 					}
 
 					if (ImGui::BeginPopupModal("World Name", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
