@@ -136,6 +136,7 @@
     <ClCompile Include="Source\Engine\AssetManagement\AssetManager.cpp" />
     <ClCompile Include="Source\Engine\AssetManagement\AssetManager.h" />
     <ClCompile Include="Source\Engine\Camera.cpp" />
+    <ClCompile Include="Source\Engine\DeveloperCommandLayer.cpp" />
     <ClCompile Include="Source\Engine\ECS\Component.cpp" />
     <ClCompile Include="Source\Engine\ECS\Object.cpp" />
     <ClCompile Include="Source\Engine\ECS\System.cpp" />
@@ -144,7 +145,6 @@
     <ClCompile Include="Source\Engine\Memory\LinearAllocator.cpp" />
     <ClCompile Include="Source\Engine\Memory\PoolAllocator.cpp" />
     <ClCompile Include="Source\Engine\Memory\StackAllocator.cpp" />
-    <ClCompile Include="Source\Engine\SSCppSTLReImp\Containers\Vector.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Mesh.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Renderer.cpp" />
     <ClCompile Include="Source\Engine\SurrealRenderer\Shader.cpp" />
@@ -161,6 +161,7 @@
     <ClInclude Include="Source\Engine\Application.h" />
     <ClInclude Include="Source\Engine\AssetManagement\Asset.h" />
     <ClInclude Include="Source\Engine\Camera.h" />
+    <ClInclude Include="Source\Engine\DeveloperCommandLayer.h" />
     <ClInclude Include="Source\Engine\ECS\Component.h" />
     <ClInclude Include="Source\Engine\ECS\Object.h" />
     <ClInclude Include="Source\Engine\ECS\System.h" />
@@ -171,7 +172,6 @@
     <ClInclude Include="Source\Engine\Memory\PoolAllocator.h" />
     <ClInclude Include="Source\Engine\Memory\StackAllocator.h" />
     <ClInclude Include="Source\Engine\Platform.h" />
-    <ClInclude Include="Source\Engine\SSCppSTLReImp\Containers\Vector.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Mesh.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Renderer.h" />
     <ClInclude Include="Source\Engine\SurrealRenderer\Shader.h" />
