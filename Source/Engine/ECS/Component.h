@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+#include <SurrealEditor/Panels/ComponentEditorPanel.h>
+
 namespace SurrealStudio {
 
 	namespace ECS {
@@ -115,6 +117,7 @@ namespace SurrealStudio {
 		private:
 
 			std::vector<std::unique_ptr<Component>> m_Components;
+			friend class SurrealEditor::ComponentEditorPanel;
 		};
 	}
 }
