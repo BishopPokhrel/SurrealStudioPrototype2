@@ -100,21 +100,103 @@ namespace SurrealStudio {
 				}
 			}
 
+			DrawCompoentPropertiesForCEP(c_CPTR_componentTypeOptions, m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.i_ComponentCreationOptionsIndex);
+
 			return true;
 		}
 
 		bool ComponentEditorPanel::DrawComponentDeletionForCEP()
 		{
+			m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.b_FlagToOpenComponentDeletionDialogBox = true;
+			if (m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.b_FlagToOpenComponentDeletionDialogBox)
+			{
+				ImGui::OpenPopup("Component Deletion");
+				m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.b_FlagToOpenComponentDeletionDialogBox = false; 
+			}
+
+			if (ImGui::BeginPopupModal("Component Deletion", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+			{
+				ImGui::Text("Enter the Object name in which the desired Component (to be deleted) is a child of.");
+				ImGui::InputText("Object Name...", m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ObjectNameInWhichComponentIsAChildOfAndWillBeDeleted, 
+					sizeof(m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ObjectNameInWhichComponentIsAChildOfAndWillBeDeleted));
+
+				if (ImGui::IsItemDeactivatedAfterEdit())
+				{
+					ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please enter an Object name!");
+				}
+
+				ImGui::InputText("Component Type...", m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ComponentDeletionForWhichComponentTypeIsRequired,
+					sizeof(m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ComponentDeletionForWhichComponentTypeIsRequired));
+
+				if (ImGui::IsItemDeactivatedAfterEdit())
+				{
+					ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please enter a Component Type!");
+				}
+
+				if (ImGui::Button("OK"))
+				{
+					ImGui::CloseCurrentPopup();
+					std::string str_objectNameInWhichComponentWillBeDeleted = m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ObjectNameInWhichComponentIsAChildOfAndWillBeDeleted;
+					std::string str_ComponentTypeInWhichComponentWillBeDeleted = m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ComponentDeletionForWhichComponentTypeIsRequired;
+
+					if (str_ComponentTypeInWhichComponentWillBeDeleted == "Transform Component")
+					{
+						m_ComponentManager.transformComponentManager.DeleteTransformComponent(str_objectNameInWhichComponentWillBeDeleted);
+					}
+
+					else if (str_ComponentTypeInWhichComponentWillBeDeleted == "Physics Component")
+					{
+						m_ComponentManager.physicsComponentManager.DeletePhysicsComponent(str_objectNameInWhichComponentWillBeDeleted);
+					}
+				}
+
+				ImGui::SameLine();
+				if (ImGui::Button("Cancel"))
+					ImGui::CloseCurrentPopup();
+
+				ImGui::EndPopup();
+			}
+
 			return true;
 		}
 
-		bool ComponentEditorPanel::DrawCompoentPropertiesForCEP()
+		bool ComponentEditorPanel::DrawCompoentPropertiesForCEP(const char* componentOptions[], int index)
 		{
+			if (!componentOptions || index < 0 || index >= 2)
+				return false; // Out of bounds
+
+			ECS::Component* componentData = m_ComponentManager.m_Components[index].get();
+			if (!componentData)
+				return false; // not valid
+
+			if (index == 0)
+			{
+				// Transform Component
+				ImGui::DragFloat3("Position:", &componentData->transformComponent.position[0], 0.1f);
+				ImGui::DragFloat3("Rotation:", &componentData->transformComponent.rotation[0], 0.1f);
+				ImGui::DragFloat3("Scale:", &componentData->transformComponent.scale[0], 0.1f);
+			}
+
+			else if (index == 1)
+			{
+				// Physics Component
+				ImGui::DragFloat3("Velocity", &componentData->physicsComponent.velocity[0], 0.1f);
+				ImGui::DragFloat3("Angluar Velocity", &componentData->physicsComponent.angularVelocity[0], 0.1f);
+				ImGui::DragFloat3("Scale Velocity", &componentData->physicsComponent.scaleVelocity[0], 0.1f);
+			}
+
 			return true;
 		}
 
 		bool ComponentEditorPanel::DrawComponentEditorPanel()
 		{
+			ImGui::Begin("Component Editor Panel");
+
+			DrawCompoentCreationForCEP();
+			if (ImGui::Button("Delete Component..."))
+				DrawComponentDeletionForCEP();
+
+			ImGui::End();
 			return true;
 		}
 	}

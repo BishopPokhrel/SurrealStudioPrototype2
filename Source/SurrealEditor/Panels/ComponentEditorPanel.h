@@ -19,7 +19,15 @@ namespace SurrealStudio {
 				char char_ObjectNameInWhichComponentWillBeAChildOf_BufferRequired[512];
 			};
 
+			struct ComponentDeletionDataNeeded
+			{
+				char char_ObjectNameInWhichComponentIsAChildOfAndWillBeDeleted[512];
+				char char_ComponentDeletionForWhichComponentTypeIsRequired[512]; // eg, Transform Component, Physics Component...
+				bool b_FlagToOpenComponentDeletionDialogBox = false; 
+			};
+
 			ComponentCreationDataNeeded componentCreationDataNeeded;
+			ComponentDeletionDataNeeded componentDeletionDataNeeded;
 		};
 
 		class ComponentEditorPanel
@@ -27,7 +35,7 @@ namespace SurrealStudio {
 		public:
 
 			bool DrawCompoentCreationForCEP();
-			bool DrawCompoentPropertiesForCEP();
+			bool DrawCompoentPropertiesForCEP(const char* componentTypes[], int index);
 			bool DrawComponentDeletionForCEP();
 			bool DrawComponentEditorPanel();
 
