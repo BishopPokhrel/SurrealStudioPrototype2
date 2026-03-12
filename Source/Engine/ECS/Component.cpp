@@ -12,18 +12,19 @@ namespace SurrealStudio {
 			newTransformComponent->position = position;
 			newTransformComponent->rotation = rotation;
 			newTransformComponent->scale = scale;
+			newTransformComponent->id = static_cast<int>(m_TransformComponents.size()) + 1;
 			m_TransformComponents.push_back(std::move(newTransformComponent));
 			return true;
 		}
 
-		bool TransformComponentManager::DeleteTransformComponent(const std::string& objectName) noexcept
+		bool TransformComponentManager::DeleteTransformComponent(const std::string& objectName, int id) noexcept
 		{
 			if (m_TransformComponents.empty())
 				return false;
 
 			for (auto it = m_TransformComponents.begin(); it != m_TransformComponents.end(); it++)
 			{
-				if ((*it)->objectName == objectName)
+				if ((*it)->objectName == objectName && (*it)->id == id)
 				{
 					m_TransformComponents.erase(it);
 					return true;
@@ -41,18 +42,19 @@ namespace SurrealStudio {
 			newPhysicsComponent->velocity = velocity;
 			newPhysicsComponent->angularVelocity = angularVelocity;
 			newPhysicsComponent->scaleVelocity = scaleVelocity;
+			newPhysicsComponent->id = static_cast<int>(m_PhysicsComponents.size()) + 1;
 			m_PhysicsComponents.push_back(std::move(newPhysicsComponent));
 			return true;
 		}
 
-		bool PhysicsComponentManager::DeletePhysicsComponent(const std::string& objectName) noexcept
+		bool PhysicsComponentManager::DeletePhysicsComponent(const std::string& objectName, int id) noexcept
 		{
 			if (m_PhysicsComponents.empty())
 				return false;
 
 			for (auto it = m_PhysicsComponents.begin(); it != m_PhysicsComponents.end(); it++)
 			{
-				if ((*it)->objectName == objectName)
+				if ((*it)->objectName == objectName && (*it)->id == id)
 				{
 					m_PhysicsComponents.erase(it);
 					return true;
@@ -62,7 +64,5 @@ namespace SurrealStudio {
 			std::cout << "Failed to delete Velocity Component in Object " << objectName << ".\n";
 			return false;
 		}
-
-
 	}
 }

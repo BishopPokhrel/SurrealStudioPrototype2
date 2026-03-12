@@ -11,8 +11,6 @@ namespace SurrealStudio {
 
 	namespace ECS {
 
-		constexpr uint32_t MAX_COMPONENTS_PER_WORLD = 10000;
-
 		struct ObjectData;
 
 		struct ComponentMain
@@ -26,6 +24,7 @@ namespace SurrealStudio {
 			glm::vec3 position;
 			glm::vec3 rotation;
 			glm::vec3 scale;
+			int id; // for deletion of Component 
 
 			std::string objectName; // to which object does it belong to 
 
@@ -39,6 +38,7 @@ namespace SurrealStudio {
 			glm::vec3 velocity;
 			glm::vec3 angularVelocity;
 			glm::vec3 scaleVelocity;
+			int id;
 
 			std::string objectName; // to which object does it belong to
 
@@ -52,7 +52,7 @@ namespace SurrealStudio {
 		public:
 
 			bool AddTransformComponent(const std::string& objectName,glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) noexcept;
-			bool DeleteTransformComponent(const std::string& objectName) noexcept;
+			bool DeleteTransformComponent(const std::string& objectName, int id) noexcept;
 			
 			std::vector<TransformComponent*> GetAllTransformComponents() const noexcept
 			{
@@ -73,7 +73,7 @@ namespace SurrealStudio {
 		public:
 
 			bool AddPhysicsComponent(const std::string& objectName, glm::vec3 velocity, glm::vec3 angularVelocity, glm::vec3 scaleVelocity) noexcept;
-			bool DeletePhysicsComponent(const std::string& objectName) noexcept;
+			bool DeletePhysicsComponent(const std::string& objectName, int id) noexcept;
 			std::vector<PhysicsComponent*> GetAllPhysicsComponents() const noexcept
 			{
 				std::vector<PhysicsComponent*> result;
@@ -86,6 +86,7 @@ namespace SurrealStudio {
 
 			std::vector<std::unique_ptr<PhysicsComponent>> m_PhysicsComponents;
 			friend struct PhysicsComponent;
+
 		};
 
 		// Central Component hub, where all the components live, NOT ComponentManager(s)
@@ -117,7 +118,6 @@ namespace SurrealStudio {
 		private:
 
 			std::vector<std::unique_ptr<Component>> m_Components;
-			friend class SurrealEditor::ComponentEditorPanel;
 		};
 	}
 }
