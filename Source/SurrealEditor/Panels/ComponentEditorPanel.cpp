@@ -28,20 +28,6 @@ namespace SurrealStudio {
 					ImGui::EndCombo();
 				}
 
-				if (m_ComponentManager.m_Components.size() > (size_t)ECS::MAX_COMPONENTS_PER_WORLD && m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.b_OpenMaxComponentsReachedPerWorld_SSERROR_DialogBox == true)
-				{
-					ImGui::OpenPopup("[SS ERROR] Max Components reached per World!");
-					m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.b_OpenMaxComponentsReachedPerWorld_SSERROR_DialogBox = false;
-				}
-
-				if (ImGui::BeginPopupModal("[SS ERROR] Max Components reached per World!", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-				{
-					ImGui::Text("Max amount of Components per World is %d, got %d.", (int)ECS::MAX_COMPONENTS_PER_WORLD, static_cast<int>(m_ComponentManager.m_Components.size()));
-					if (ImGui::Button("OK")) {
-						ImGui::CloseCurrentPopup();
-					}
-				}
-
 				if (ImGui::Button("Create Component"))
 				{
 					m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.b_FlagToOpenChooseObjectForComponentToBeAChildOf_Dialog = true;
@@ -133,20 +119,29 @@ namespace SurrealStudio {
 					ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please enter a Component Type!");
 				}
 
+				ImGui::InputText("Enter the Component ID...", m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_IDForComponentToBeDeleted,
+					sizeof(m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_IDForComponentToBeDeleted));
+
+				if (ImGui::IsItemDeactivatedAfterEdit())
+				{
+					ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please enter a Component ID!");
+				}
+
 				if (ImGui::Button("OK"))
 				{
 					ImGui::CloseCurrentPopup();
 					std::string str_objectNameInWhichComponentWillBeDeleted = m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ObjectNameInWhichComponentIsAChildOfAndWillBeDeleted;
 					std::string str_ComponentTypeInWhichComponentWillBeDeleted = m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_ComponentDeletionForWhichComponentTypeIsRequired;
+					int i_ComponentIDWhichIsRequiredForComponentDeletion = std::stoi(m_ComponentEditorPanelAdditonalDataNeeded.componentDeletionDataNeeded.char_IDForComponentToBeDeleted);
 
 					if (str_ComponentTypeInWhichComponentWillBeDeleted == "Transform Component")
 					{
-						m_ComponentManager.transformComponentManager.DeleteTransformComponent(str_objectNameInWhichComponentWillBeDeleted);
+						m_ComponentManager.transformComponentManager.DeleteTransformComponent(str_objectNameInWhichComponentWillBeDeleted, i_ComponentIDWhichIsRequiredForComponentDeletion);
 					}
 
 					else if (str_ComponentTypeInWhichComponentWillBeDeleted == "Physics Component")
 					{
-						m_ComponentManager.physicsComponentManager.DeletePhysicsComponent(str_objectNameInWhichComponentWillBeDeleted);
+						m_ComponentManager.physicsComponentManager.DeletePhysicsComponent(str_objectNameInWhichComponentWillBeDeleted, i_ComponentIDWhichIsRequiredForComponentDeletion);
 					}
 				}
 
@@ -165,7 +160,7 @@ namespace SurrealStudio {
 			if (!componentOptions || index < 0 || index >= 2)
 				return false; // Out of bounds
 
-			ECS::Component* componentData = m_ComponentManager.m_Components[index].get();
+			ECS::Component* componentData = m_ComponentManager.GetAllComponents()[index];
 			if (!componentData)
 				return false; // not valid
 

@@ -23,6 +23,7 @@ namespace SurrealStudio {
 			{
 				char char_ObjectNameInWhichComponentIsAChildOfAndWillBeDeleted[512];
 				char char_ComponentDeletionForWhichComponentTypeIsRequired[512]; // eg, Transform Component, Physics Component...
+				char char_IDForComponentToBeDeleted[512];
 				bool b_FlagToOpenComponentDeletionDialogBox = false; 
 			};
 
