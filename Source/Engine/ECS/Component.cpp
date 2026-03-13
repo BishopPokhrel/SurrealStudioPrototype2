@@ -12,7 +12,7 @@ namespace SurrealStudio {
 			newTransformComponent->position = position;
 			newTransformComponent->rotation = rotation;
 			newTransformComponent->scale = scale;
-			newTransformComponent->id = static_cast<int>(m_TransformComponents.size()) + 1;
+			newTransformComponent->id = m_NextTransformComponentID++;
 			m_TransformComponents.push_back(std::move(newTransformComponent));
 			return true;
 		}
@@ -42,7 +42,7 @@ namespace SurrealStudio {
 			newPhysicsComponent->velocity = velocity;
 			newPhysicsComponent->angularVelocity = angularVelocity;
 			newPhysicsComponent->scaleVelocity = scaleVelocity;
-			newPhysicsComponent->id = static_cast<int>(m_PhysicsComponents.size()) + 1;
+			newPhysicsComponent->id = m_NextPhysicsComponentID++;
 			m_PhysicsComponents.push_back(std::move(newPhysicsComponent));
 			return true;
 		}

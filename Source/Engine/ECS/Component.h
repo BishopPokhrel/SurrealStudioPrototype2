@@ -66,6 +66,7 @@ namespace SurrealStudio {
 
 			std::vector<std::unique_ptr<TransformComponent>> m_TransformComponents;
 			friend struct TransformComponent;
+			int m_NextTransformComponentID = 0;
 		};
 
 		class PhysicsComponentManager
@@ -86,7 +87,7 @@ namespace SurrealStudio {
 
 			std::vector<std::unique_ptr<PhysicsComponent>> m_PhysicsComponents;
 			friend struct PhysicsComponent;
-
+			int m_NextPhysicsComponentID = 0;
 		};
 
 		// Central Component hub, where all the components live, NOT ComponentManager(s)
