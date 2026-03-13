@@ -1,5 +1,7 @@
 #include "ComponentEditorPanel.h"
 
+#include <Engine/ECS/Component.h>
+
 #include <imgui.h>
 
 namespace SurrealStudio {
@@ -58,7 +60,7 @@ namespace SurrealStudio {
 									if (m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.b_HasTransformComponentAlreadyBeenCreated)
 										break; // Transform Component already created, no need to make the component again 
 
-									m_ComponentManager.transformComponentManager.AddTransformComponent(objectNameToBeAChildOfNewComponent, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f });
+									m_ComponentManager->transformComponentManager.AddTransformComponent(objectNameToBeAChildOfNewComponent, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f });
 									m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.b_HasTransformComponentAlreadyBeenCreated = true;
 									break;
 								}
@@ -68,7 +70,7 @@ namespace SurrealStudio {
 									if (m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.b_HasPhysicsComponentAlreadyBeenCreated)
 										break; // Transform Component already created, no need to make the component again.
 
-									m_ComponentManager.physicsComponentManager.AddPhysicsComponent(objectNameToBeAChildOfNewComponent, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f });
+									m_ComponentManager->physicsComponentManager.AddPhysicsComponent(objectNameToBeAChildOfNewComponent, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f });
 									m_ComponentEditorPanelAdditonalDataNeeded.componentCreationDataNeeded.b_HasPhysicsComponentAlreadyBeenCreated = true;
 									break;
 								}
@@ -136,12 +138,12 @@ namespace SurrealStudio {
 
 					if (str_ComponentTypeInWhichComponentWillBeDeleted == "Transform Component")
 					{
-						m_ComponentManager.transformComponentManager.DeleteTransformComponent(str_objectNameInWhichComponentWillBeDeleted, i_ComponentIDWhichIsRequiredForComponentDeletion);
+						m_ComponentManager->transformComponentManager.DeleteTransformComponent(str_objectNameInWhichComponentWillBeDeleted, i_ComponentIDWhichIsRequiredForComponentDeletion);
 					}
 
 					else if (str_ComponentTypeInWhichComponentWillBeDeleted == "Physics Component")
 					{
-						m_ComponentManager.physicsComponentManager.DeletePhysicsComponent(str_objectNameInWhichComponentWillBeDeleted, i_ComponentIDWhichIsRequiredForComponentDeletion);
+						m_ComponentManager->physicsComponentManager.DeletePhysicsComponent(str_objectNameInWhichComponentWillBeDeleted, i_ComponentIDWhichIsRequiredForComponentDeletion);
 					}
 				}
 
@@ -160,7 +162,7 @@ namespace SurrealStudio {
 			if (!componentOptions || index < 0 || index >= 2)
 				return false; // Out of bounds
 
-			ECS::Component* componentData = m_ComponentManager.GetAllComponents()[index];
+			ECS::Component* componentData = m_ComponentManager->GetAllComponents()[index];
 			if (!componentData)
 				return false; // not valid
 

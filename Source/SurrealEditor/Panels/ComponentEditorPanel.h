@@ -1,6 +1,10 @@
 #pragma once
 
-#include <Engine/ECS/Component.h>
+#include <memory>
+
+namespace SurrealStudio::ECS {
+	class ComponentManager;
+}
 
 namespace SurrealStudio {
 
@@ -42,7 +46,7 @@ namespace SurrealStudio {
 
 		private:
 
-			ECS::ComponentManager m_ComponentManager;
+			std::unique_ptr<ECS::ComponentManager> m_ComponentManager;
 			ComponentEditorPanel_AdditonalDataNeeded m_ComponentEditorPanelAdditonalDataNeeded;
 		};
 	}
