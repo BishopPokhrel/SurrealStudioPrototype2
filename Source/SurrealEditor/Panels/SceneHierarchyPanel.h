@@ -66,6 +66,7 @@ namespace SurrealStudio {
 			bool m_OpenCommandPalttleDialogBox = false; 
 
 			// ECS/Scene System classes instances
+			ECS::ObjectID m_SelectedObjectID = 0;
 			ECS::ObjectData m_ObjectData; 
 			ECS::ObjectManager m_ObjectManager;
 			ECS::ComponentManager m_ComponentManager;
