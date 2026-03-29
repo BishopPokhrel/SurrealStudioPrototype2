@@ -212,7 +212,14 @@ namespace SurrealStudio {
 		{
 			if (ImGui::CollapsingHeader("Material Properties"))
 			{
-
+				if (ImGui::CollapsingHeader("General"))
+				{
+					ImGui::Text("Current Material Name: %s", (std::string)m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.ui_MaterialCreationDataRequired.char_MaterialNamePopupBuffer);
+					ImGui::InputText("Material Name (Optional) ",
+						m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.general.char_MaterialNameBuffer,
+						sizeof(m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.general.char_MaterialNameBuffer)
+					);
+				}
 			}
 
 			return true;

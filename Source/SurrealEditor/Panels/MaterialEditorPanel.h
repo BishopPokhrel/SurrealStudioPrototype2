@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 
+#include <glm/glm.hpp>
 #include <Engine/Logging.h>
 
 namespace SurrealStudio {
@@ -30,10 +31,71 @@ namespace SurrealStudio {
 						bool b_OpenMaxColorMaterialsPerWorld_SSERROR_DialogBox = false; // Default
 						bool b_OpenMaterialNamePopup = false;
 						char char_MaterialNamePopupBuffer[512];
-						bool b_HasMaterialAlreadyBeenCreated = false; 
+						bool b_HasMaterialAlreadyBeenCreated = false;
+					};
+
+					struct MaterialPropertiesDataRequired
+					{
+						struct General
+						{
+							char char_MaterialNameBuffer[512]; // We will first display the name from the actual real material name.
+							bool b_MaterialEnabled = true; // default 
+							int i_MaterialRenderModeIndex = 0;
+
+							enum class RenderMode
+							{
+								None = 0,
+								Opaque,
+								Transparent,
+								Additive
+							};
+
+							RenderMode renderMode = RenderMode::None;
+
+							// Checkboxes (all default)
+							bool b_ReceiveLighting = false;
+							bool b_TwoSidedRendering = false;
+							bool b_CastsShadows = false;
+						};
+
+						struct ColorMaterialProperties
+						{
+							glm::vec4 color;
+							float f_SliderIntensity = 1.0f;
+							bool b_UseVertexColor = false; 
+							float f_AmbientStrength = 0.0f;
+							float f_DiffuseStrength = 0.0f;
+							// ONLY IF RENDERMODE IS ONT OPAQUE
+							float f_Opacity = 0.0f;
+						};
+
+						struct TextureMaterialProperties
+						{
+							std::string str_AssetPath = "";
+							glm::vec4 color;
+							glm::vec2 textureTilling;
+							glm::vec2 textureOffset;
+							bool b_FlipX = false;
+							bool b_FlipY = false;
+							enum class FilteringMode { None = 0, Nearest, Linear }; FilteringMode fileringMode = FilteringMode::None;
+							bool b_MipmapsEnabled = false;
+							float f_Opacticy = 0.0f;
+						};
+
+						struct CustomMaterialProperties
+						{
+							std::string str_CustomMaterialFilePath = "";
+							std::string str_CustomMaterialName = "";
+						};
+
+						General general;
+						ColorMaterialProperties colorMaterialProperties;
+						TextureMaterialProperties textureMaterialProperties;
+						CustomMaterialProperties customMaterialProperties;
 					};
 
 					UI_MaterialCreationDataRequired ui_MaterialCreationDataRequired;
+					MaterialPropertiesDataRequired materialPropertiesDataRequired;
 				};
 
 				// const ints
@@ -69,13 +131,29 @@ namespace SurrealStudio {
 				materialDataRequiredVec.push_back(std::move(newMaterial));
 			}
 
-			void DeleteMaterial(const std::string& name, int id)
+			void DeleteMaterial(const std::string& name, int id) noexcept
 			{
 				for (auto it = materialDataRequiredVec.begin(); it != materialDataRequiredVec.end(); it++)
 				{
 					if ((*it)->materialID == id && (*it)->str_MaterialName == name)
 					{
 						materialDataRequiredVec.erase(it);
+					}
+				}
+			}
+
+			void RenameMaterial(const std::string& oldName, const std::string & newName, int count = 0) noexcept
+			{
+				if (oldName.empty() || newName.empty()) 
+					return;
+
+				for (auto it = materialDataRequiredVec.begin(); it != materialDataRequiredVec.end(); it++)
+				{
+					if ((*it)->str_MaterialName == oldName)
+					{
+						count++;
+						(*it)->str_MaterialName = newName;
+						if (count >= 1) return;
 					}
 				}
 			}
