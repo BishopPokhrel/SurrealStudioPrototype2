@@ -91,6 +91,7 @@ namespace SurrealStudio {
 							enum class FilteringMode { None = 0, Nearest, Linear }; FilteringMode fileringMode = FilteringMode::None;
 							bool b_MipmapsEnabled = false;
 							float f_Opacticy = 0.0f;
+							char char_AssetPathBuffer[1024]; 
 						};
 
 						struct CustomMaterialProperties

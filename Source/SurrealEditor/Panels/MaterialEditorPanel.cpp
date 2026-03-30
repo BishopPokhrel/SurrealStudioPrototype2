@@ -261,7 +261,7 @@
 									colMaterial.color.a,
 								};
 
-								ImGui::ColorPicker4("Material Color", f_materialCol);
+								ImGui::ColorEdit4("Material Color", f_materialCol);
 								ImGui::SliderFloat("Material Intensity", &colMaterial.f_SliderIntensity, 1.0f, 5.0f);
 								if (ImGui::Checkbox("Use Vertex Color", &colMaterial.b_UseVertexColor)) {} // TODO: imp
 								ImGui::SliderFloat("Ambient Strength", &colMaterial.f_AmbientStrength, 0.0f, 5.0f);
@@ -273,6 +273,24 @@
 							}
 						}
 
+						else if (index == 1)
+						{
+							if (ImGui::CollapsingHeader("Texture Material Properties"))
+							{
+								auto& textMaterial = m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.textureMaterialProperties;
+								
+								float colText[4] = {
+									textMaterial.color.r,
+									textMaterial.color.g,
+									textMaterial.color.b,
+									textMaterial.color.a
+								};
+
+								ImGui::InputText("Enter the path of the Texture Material: ", textMaterial.char_AssetPathBuffer, sizeof(textMaterial.char_AssetPathBuffer));
+								ImGui::ColorEdit4("Texture Material Color", colText);
+								ImGui::DragFloat2("Texture Tilling", &textMaterial.textureTilling[0], 0.1f);
+							}
+						}
 					}
 				}
 
