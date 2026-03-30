@@ -56,6 +56,17 @@ namespace SurrealStudio {
 							bool b_ReceiveLighting = false;
 							bool b_TwoSidedRendering = false;
 							bool b_CastsShadows = false;
+
+							void RequestRenderModeSet(int index) noexcept
+							{
+								if (index == 0)
+									renderMode = RenderMode::Opaque;
+								else if (index == 1)
+									renderMode = RenderMode::Transparent;
+								else if (index == 2)
+									renderMode = RenderMode::Additive;
+								else return;
+							}
 						};
 
 						struct ColorMaterialProperties
