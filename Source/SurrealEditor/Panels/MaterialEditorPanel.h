@@ -88,16 +88,29 @@ namespace SurrealStudio {
 							glm::vec2 textureOffset;
 							bool b_FlipX = false;
 							bool b_FlipY = false;
-							enum class FilteringMode { None = 0, Nearest, Linear }; FilteringMode fileringMode = FilteringMode::None;
+							enum class FilteringMode { None = 0, Nearest, Linear }; FilteringMode filteringMode = FilteringMode::None;
 							bool b_MipmapsEnabled = false;
-							float f_Opacticy = 0.0f;
+							float f_Opacity = 0.0f;
 							char char_AssetPathBuffer[1024]; 
+							int i_FilteringModeOptionsIndex = 0;
+								
+							void RequestFilteringModeSet(int index) noexcept
+							{
+								if (index == 0)
+									filteringMode = FilteringMode::Nearest;
+								else if (index == 1)
+									filteringMode = FilteringMode::Linear;
+								else return;
+							}
 						};
 
 						struct CustomMaterialProperties
 						{
 							std::string str_CustomMaterialFilePath = "";
 							std::string str_CustomMaterialName = "";
+							char char_BufferForCustomMaterialFilePath[1024];
+							char char_BufferForCustomMaterialName[512];							
+							float f_Opacity = 0.0f;
 						};
 
 						General general;

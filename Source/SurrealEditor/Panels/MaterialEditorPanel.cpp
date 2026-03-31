@@ -219,14 +219,26 @@
 				{
 					if (ImGui::CollapsingHeader("General"))
 					{
+						auto& matCreation = m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.ui_MaterialCreationDataRequired;
+						auto& general = m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.general;
+
 						ImGui::Text("Current Material Name: %s", m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.ui_MaterialCreationDataRequired.char_MaterialNamePopupBuffer);
 						ImGui::InputText("Material Name (Optional) ",
 							m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.general.char_MaterialNameBuffer,
 							sizeof(m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.general.char_MaterialNameBuffer)
 						);
 
+						std::string str_OriginalMaterialName = matCreation.char_MaterialNamePopupBuffer; // This char buffer is the orginal name of the material
+						std::string str_EditiedMaterialName = general.char_MaterialNameBuffer;
+
+						if (str_OriginalMaterialName != str_EditiedMaterialName && ImGui::IsItemDeactivatedAfterEdit()) // Check if the name has been edited or not and depending on whether it is true or false, it will update the material name with the function RenameMaterial() or do nothing
+						{
+							m_MaterialEditorPanel_Materials_DataRequired.RenameMaterial(str_OriginalMaterialName, str_EditiedMaterialName);
+							strcpy_s(matCreation.char_MaterialNamePopupBuffer, general.char_MaterialNameBuffer);
+						}
+						else; // just not do anything
+
 						// Render Mode dropdown
-						auto& general = m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.general;
 						if (ImGui::BeginCombo("Render Mode", c_CPTR_renderMode[general.i_MaterialRenderModeIndex]))
 						{
 							for (int n = 0; n < IM_ARRAYSIZE(c_CPTR_renderMode); n++)
@@ -279,6 +291,10 @@
 							{
 								auto& textMaterial = m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.textureMaterialProperties;
 								
+								const char* c_CPTR_filteringModeOptions[] = {
+									"Nearest", "Linear"
+								};
+
 								float colText[4] = {
 									textMaterial.color.r,
 									textMaterial.color.g,
@@ -286,9 +302,45 @@
 									textMaterial.color.a
 								};
 
+								// Flitering Mode dropdown
+								if (ImGui::BeginCombo("Filtering Mode", c_CPTR_filteringModeOptions[textMaterial.i_FilteringModeOptionsIndex]))
+								{
+									for (int n = 0; n < IM_ARRAYSIZE(c_CPTR_filteringModeOptions); n++)
+									{
+										bool b_IsFilteringModeSelected = (textMaterial.i_FilteringModeOptionsIndex == n);
+										if (ImGui::Selectable(c_CPTR_filteringModeOptions[n], b_IsFilteringModeSelected))
+											textMaterial.i_FilteringModeOptionsIndex = n;
+
+										if (b_IsFilteringModeSelected == true)
+											ImGui::SetItemDefaultFocus();
+									}
+									ImGui::EndCombo();
+								}
+
 								ImGui::InputText("Enter the path of the Texture Material: ", textMaterial.char_AssetPathBuffer, sizeof(textMaterial.char_AssetPathBuffer));
 								ImGui::ColorEdit4("Texture Material Color", colText);
 								ImGui::DragFloat2("Texture Tilling", &textMaterial.textureTilling[0], 0.1f);
+								ImGui::DragFloat2("Texture Offset", &textMaterial.textureOffset[0], 01.f);
+								
+								if (ImGui::Checkbox("Flip X", &textMaterial.b_FlipX)) {} // TODO: imp
+								if (ImGui::Checkbox("Flip Y", &textMaterial.b_FlipY)) {}
+								if (ImGui::Checkbox("Enable Mipmaps", &textMaterial.b_MipmapsEnabled)) {}
+
+								using RenderMode = MaterialEditorPanel_Materials_DataRequired::MaterialDataRequired::UI_MaterialDataRequired::MaterialPropertiesDataRequired::General::RenderMode;
+								if (general.renderMode == RenderMode::Opaque)
+									ImGui::SliderFloat("Opacity", &textMaterial.f_Opacity, 0.1f, 1.0f);
+							}
+						}
+
+						else if (index == 2)
+						{
+							auto& customMaterial = m_MaterialEditorPanel_Materials_DataRequired.materialDataRequired->ui_MaterialDataRequired.materialPropertiesDataRequired.customMaterialProperties;
+							if (ImGui::CollapsingHeader("Custom Material Properties"))
+							{
+								ImGui::InputText("Material File Path...", customMaterial.char_BufferForCustomMaterialFilePath, sizeof(customMaterial.char_BufferForCustomMaterialFilePath));
+								std::string filePath = customMaterial.char_BufferForCustomMaterialFilePath;
+								if (filePath.empty()) 
+									ImGui::TextColored(ImVec4(1, 0, 0, 1), "Please enter a file path!");
 							}
 						}
 					}
