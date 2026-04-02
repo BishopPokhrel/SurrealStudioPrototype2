@@ -6,7 +6,7 @@ Surreal Studio is an OpenGL based game engine. It serves as an experimental prot
 ## Prerequisites 
 
 - Windows 11 
-- [Microsoft Visual Studio 2026](https://visualstudio.microsoft.com/downloads)
+- [Microsoft Visual Studio 2022](https://visualstudio.microsoft.com/downloads)
 - Dear ImGui
 - GLFW & GLAD for OpenGL
 
