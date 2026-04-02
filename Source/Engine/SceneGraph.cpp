@@ -13,7 +13,7 @@ namespace SurrealStudio {
 			nodeData.name = childName;
 			nodeData.mainParentID = mainParentID;
 			nodeData.id = nextID++;
-			m_NodeDataVec.emplace_back(nodeData);
+			m_NodeDataVec.push_back(nodeData);
 		}
 
 		void Node::RemoveChild(size_t id) noexcept
@@ -40,9 +40,10 @@ namespace SurrealStudio {
 
 			if (parentID >= 1) // if parentID is 0, then that means there is no parent. I
 			{
-				for (auto& id : m_Nodes)
+				for (auto& [nodeID, nodeObj] : m_Nodes)
 				{
-					m_Nodes[parentID].m_NodeData.children.emplace_back(id);
+					if (nodeID == parentID) continue;
+					m_Nodes[parentID].m_NodeData.children.emplace_back(nodeID);	
 				}
 			}
 		}
@@ -104,7 +105,7 @@ namespace SurrealStudio {
 			for (auto it = m_Node.m_NodeDataVec.begin(); it != m_Node.m_NodeDataVec.end(); it++)
 			{
 				if (it->name == name)
-					return it->id;
+					return (int)it->id;
 			}
 		}
 

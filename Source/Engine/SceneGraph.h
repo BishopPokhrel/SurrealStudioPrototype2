@@ -13,7 +13,7 @@ namespace SurrealStudio {
 			std::string name;
 			size_t id;
 			size_t mainParentID = SIZE_MAX;
-			std::vector<size_t> children;
+			std::vector<size_t> children = {};
 		};
 
 		class Node
